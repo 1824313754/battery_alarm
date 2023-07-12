@@ -22,8 +22,9 @@ class GeelyLFPState extends KeyedProcessFunction[String,JSONObject,JSONObject]{
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties= getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    socData2137=new ConfigParams(properties).creatInstanceNCM("Geely-DJ2137")
-    socData2136=new ConfigParams(properties).creatInstanceNCM("Geely-DJ2136")
+    val params = ConfigParams.getInstance(properties)
+    socData2137=params.creatInstanceNCM().getOrElse("Geely-DJ2137",socData2137)
+    socData2136=params.creatInstanceNCM().getOrElse("Geely-DJ2136",socData2136)
   }
 
   override def processElement(value: JSONObject, ctx: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, out: Collector[JSONObject]): Unit = {

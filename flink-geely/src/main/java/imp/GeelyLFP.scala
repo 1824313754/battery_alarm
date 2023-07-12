@@ -24,14 +24,6 @@ object GeelyLFP {
   def addGeelyAlarm(persistsParts: DataStream[JSONObject]): DataStream[JSONObject] = {
     val value: DataStream[JSONObject] = persistsParts.map {
       json => {
-        val timeStamp: Long = mkctime(json.getInteger("year")
-          , json.getInteger("month")
-          , json.getInteger("day")
-          , json.getInteger("hours")
-          , json.getInteger("minutes")
-          , json.getInteger("seconds"))
-        json.put("timeStamp", timeStamp)
-
         json.put("cellVoltagesbackup", json.getString("cellVoltages"))
         json.put("probeTemperaturesbackup", json.getString("probeTemperatures"))
 

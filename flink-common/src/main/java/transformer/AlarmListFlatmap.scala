@@ -9,6 +9,7 @@ import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.util.Collector
 import utils.CommonFuncs
+import utils.CommonFuncs.stringToIntArray
 
 import java.util.UUID
 
@@ -22,10 +23,14 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, ClickhouseAlarmTa
   )
   //定义列表状态，用于存储报警类型
   var alarmTypeList:Map[String,String] = _
+  //定义车厂号和车厂名称的map
+  var vehicleFactoryMap:Map[Int,String] = _
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    alarmTypeList=new ConfigParams(properties).getAlarmDictInstance()
+    val params = ConfigParams.getInstance(properties)
+    alarmTypeList=params.getAlarmDictInstance()
+    vehicleFactoryMap=params.getVehicleFactoryDictInstance()
   }
 
   override def flatMap(json: JSONObject, out: Collector[ClickhouseAlarmTable]): Unit = {
@@ -41,9 +46,48 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, ClickhouseAlarmTa
         //添加报警次数和报警时间
         json.put("alarm_count", 1)
         json.put("start_time", json.getLongValue("timeStamp"))
+        json.put("alarm_time",CommonFuncs.timestampToDate(json.getLongValue("timeStamp"))) //采集点时间
         json.put("day_of_year", CommonFuncs.timestampToDate(json.getLongValue("timeStamp")).substring(0,10))
         json.put("vehicle_factory",json.getString("vehicleFactory"))
+        json.put("vehicle_factory_name",vehicleFactoryMap.get(json.getIntValue("vehicleFactory")).getOrElse(null))
         json.put("uuid",UUID.randomUUID().toString)
+        json.put("process_time",CommonFuncs.getTimeStr())//报警开始时间
+
+        //取出电压和温度数组计算平均值
+        val probeTemperaturesArray: Array[Int] = stringToIntArray(json.getString("probeTemperatures"))
+        val cellVoltagesArray: Array[Int] = stringToIntArray(json.getString("cellVoltages"))
+        //计算平均值,若cellVoltagesArray为空或null则返回0
+        if(cellVoltagesArray == null || cellVoltagesArray.length == 0 ){
+          json.put("avgVoltage",0)
+        }else{
+          val cellVoltagesArrayLength:Float = cellVoltagesArray.length
+          var avgVoltage: Float =cellVoltagesArray.sum / cellVoltagesArrayLength
+          val formatted = f"$avgVoltage%.4f"
+          avgVoltage = formatted.replaceAll("0*$", "").replaceAll("\\.$", "").toFloat
+          json.put("avgVoltage",avgVoltage)
+        }
+        if (probeTemperaturesArray == null || probeTemperaturesArray.length == 0){
+          json.put("avgTemperature",0)
+        }else{
+          val probeTemperaturesLength:Float = probeTemperaturesArray.length
+          var avgTemperature: Float =probeTemperaturesArray.sum / probeTemperaturesLength-40
+          val formatted = f"$avgTemperature%.1f"
+          avgTemperature = formatted.replaceAll("0*$", "").replaceAll("\\.$", "").toFloat
+          json.put("avgTemperature",avgTemperature)
+        }
+        val customField: JSONObject = json.getJSONObject("customField")
+        val newObject = new JSONObject()
+        //删除customField中其他的key，只保留commandType
+        if (customField!=null) {
+          val commandType: Int = customField.getIntValue("commandType")
+          newObject.put("commandType",commandType)
+          val index:Int=customField.getIntValue("index")
+          val yichangdu=customField.getString("yichangdu")
+          newObject.put("index",index)
+          newObject.put("yichangdu",yichangdu)
+          json.put("customField", newObject.toString)
+        }
+
         //将json映射为AlarmCount对象
         val alarmCount: ClickhouseAlarmTable = JSON.parseObject(json.toJSONString, classOf[ClickhouseAlarmTable])
         //返回对象流

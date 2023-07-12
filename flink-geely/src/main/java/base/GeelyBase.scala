@@ -3,7 +3,6 @@ package base
 import `enum`.AlarmEnum._
 import com.alibaba.fastjson.{JSON, JSONObject}
 import imp.GeelyLFP.{addGeelyLFP1, addGeelyLFP2}
-import imp.GeelyNCM
 import imp.GeelyNCM.{addGeelyNCM1, addGeelyNCM2}
 import org.apache.flink.streaming.api.datastream.DataStream
 

@@ -7,15 +7,53 @@ import org.apache.flink.streaming.api.functions.sink.RichSinkFunction
 import org.apache.flink.streaming.api.functions.sink.SinkFunction.Context
 import ru.yandex.clickhouse.{BalancedClickhouseDataSource, ClickHouseConnection}
 import ru.yandex.clickhouse.settings.ClickHouseProperties
-import utils.GetConfig
 import utils.SqlUtils.sqlProducer
 
+/**
+ * 写入clickhouse
+ * @param properties
+ * @param <T>
+ *
+ */
 
-class ClickHouseSink(properties :ParameterTool) extends RichSinkFunction[ClickhouseAlarmTable] {
-//  val properties = GetConfig.getProperties("test.properties")
+class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[ClickhouseAlarmTable] {
   private var connection: ClickHouseConnection = _
   private val tableName: String = properties.get("clickhouse.table")
+  //重试次数
+  private val maxRetries: Int = properties.getInt("clickhouse.maxRetries", 3)
   override def open(parameters: Configuration): Unit = {
+    connect()
+  }
+
+  override def invoke(alarmInfo: ClickhouseAlarmTable, context: Context): Unit = {
+    var retries = 0
+    var success = false
+
+    while (!success && retries < maxRetries) {
+      try {
+        val statement = connection.createStatement()
+        val query: String = sqlProducer(tableName, alarmInfo)
+        statement.executeUpdate(query)
+        success = true
+      } catch {
+        case e: Exception =>
+          retries += 1
+          if (retries < maxRetries) {
+            println(s"Writing record failed, retrying ($retries/$maxRetries)." + e.getMessage)
+            connect() // Reconnect before retrying
+          } else {
+            println(s"Max retries exceeded. Failed to write to ClickHouse.")
+            e.printStackTrace()
+          }
+      }
+    }
+  }
+
+  override def close(): Unit = {
+    connection.close()
+  }
+
+  private def connect(): Unit = {
     val clickPro = new ClickHouseProperties()
     clickPro.setUser(properties.get("clickhouse.user"))
     clickPro.setPassword(properties.get("clickhouse.passwd"))
@@ -23,15 +61,6 @@ class ClickHouseSink(properties :ParameterTool) extends RichSinkFunction[Clickho
     source.actualize()
     connection = source.getConnection
   }
-
-  override def invoke(alarmInfo: ClickhouseAlarmTable, context: Context): Unit = {
-    val statement = connection.createStatement()
-    val query: String = sqlProducer(tableName, alarmInfo)
-    statement.executeUpdate(query)
-  }
-
-  override def close(): Unit = {
-    connection.close()
-  }
 }
+
 

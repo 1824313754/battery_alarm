@@ -19,7 +19,8 @@ class GeelyNCMState extends KeyedProcessFunction[String,JSONObject,JSONObject]{
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties= getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    socData=new ConfigParams(properties).creatInstanceNCM("Geely-NCM-52Ah")
+    val params = ConfigParams.getInstance(properties)
+    socData=params.creatInstanceNCM().getOrElse("Geely-NCM-52Ah",socData)
   }
 
   override def processElement(value: JSONObject, ctx: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, out: Collector[JSONObject]): Unit = {

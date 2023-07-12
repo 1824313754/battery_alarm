@@ -4,42 +4,51 @@ import com.jolbox.bonecp.{BoneCP, BoneCPConfig}
 import org.apache.flink.api.java.utils.ParameterTool
 import org.slf4j.LoggerFactory
 
-import java.sql.Connection
+import java.sql.{Connection, SQLException}
 
-object ConnectionPool {
-  //打印日志
-  val logger = LoggerFactory.getLogger(ConnectionPool.getClass)
-  var connectionPool:BoneCP=_
-  def getConnection(properties:ParameterTool)={
+object ConnectionPool extends Serializable {
+   private val logger = LoggerFactory.getLogger(ConnectionPool.getClass)
+  @volatile  private var connectionPool: BoneCP = _
+  def getConnection(properties: ParameterTool): Connection = {
+    if (connectionPool == null) {
+      synchronized {
+        if (connectionPool == null) {
+          initConnectionPool(properties)
+        }
+      }
+    }
     try {
-      Class.forName("com.mysql.cj.jdbc.Driver")
-      val config = new BoneCPConfig()
-      config.setJdbcUrl(properties.get("mysql.conn"))
-      config.setUsername(properties.get("mysql.user"))
-      config.setPassword(properties.get("mysql.passwd"))
-      config.setMinConnectionsPerPartition(1)
-      config.setMaxConnectionsPerPartition(2)
-      config.setPartitionCount(6)
-      config.setCloseConnectionWatch(false)
-      config.setLazyInit(true)
-      connectionPool = new BoneCP(config)
-//      print("connectionPool: " + connectionPool)
-      val connection = connectionPool.getConnection
-      connection
+      connectionPool.getConnection
     } catch {
-      case exception: Exception => logger.error("create Connection Error: \n" + exception.getMessage)
-        null
+      case e: SQLException =>
+        logger.error("Failed to get a connection from the connection pool", e)
+        throw e
     }
   }
-//  def getConnection:Option[Connection] = {
-//    Option(connectionPool.getConnection)
-//  }
 
-  def closeConnection(connection: Connection)={
-    if (!connection.isClosed){
-      connection.close()
+  def closeConnection(connection: Connection): Unit = {
+    try {
+      if (connection != null && !connection.isClosed) {
+        connection.close()
+      }
+    } catch {
+      case e: SQLException =>
+        logger.error("Failed to close the connection", e)
     }
-
   }
 
+  private def initConnectionPool(properties: ParameterTool): Unit = {
+    logger.info("Initializing connection pool")
+    val config = new BoneCPConfig()
+    config.setJdbcUrl(properties.get("mysql.conn"))
+    config.setUsername(properties.get("mysql.user"))
+    config.setPassword(properties.get("mysql.passwd"))
+    config.setMinConnectionsPerPartition(1)
+    config.setMaxConnectionsPerPartition(2)
+    config.setPartitionCount(6)
+    config.setCloseConnectionWatch(false)
+    config.setLazyInit(true)
+    connectionPool = new BoneCP(config)
+    logger.info("Connection pool initialized successfully")
+  }
 }
