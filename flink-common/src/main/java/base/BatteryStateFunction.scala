@@ -1,6 +1,6 @@
 package base
 
-import bean.base.ConfigParams
+import bean.ConfigParams
 import com.alibaba.fastjson.JSONObject
 import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
 import org.apache.flink.api.java.utils.ParameterTool
@@ -30,13 +30,8 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
       out.collect(json)
     }
 
+  //定义一个抽象方法，用于处理电池数据
   def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject
 
 
-  //定义方法加载模型,使用反射机制
-  def loadModel[T: ClassTag](modelName: String): T = {
-    val modelClass = Class.forName(modelName)
-    val model = modelClass.newInstance()
-    model.asInstanceOf[T]
-  }
 }

@@ -1,12 +1,14 @@
 package sink
 
-import bean.ClickhouseAlarmTable
+import bean.{ClickhouseAlarmTable, ConfigParams, KafkaInfo}
+import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction
 import org.apache.flink.streaming.api.functions.sink.SinkFunction.Context
 import ru.yandex.clickhouse.{BalancedClickhouseDataSource, ClickHouseConnection}
 import ru.yandex.clickhouse.settings.ClickHouseProperties
+import utils.RedisUtil
 import utils.SqlUtils.sqlProducer
 
 /**
@@ -16,23 +18,24 @@ import utils.SqlUtils.sqlProducer
  *
  */
 
-class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[ClickhouseAlarmTable] {
+class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObject] {
   private var connection: ClickHouseConnection = _
   private val tableName: String = properties.get("clickhouse.table")
   //重试次数
   private val maxRetries: Int = properties.getInt("clickhouse.maxRetries", 3)
+  private var redisUtil: RedisUtil = _
   override def open(parameters: Configuration): Unit = {
     connect()
   }
 
-  override def invoke(alarmInfo: ClickhouseAlarmTable, context: Context): Unit = {
+  override def invoke(alarmInfo: JSONObject, context: Context): Unit = {
     var retries = 0
     var success = false
-
+    val alarm = alarmInfo.toJavaObject(classOf[ClickhouseAlarmTable])
     while (!success && retries < maxRetries) {
       try {
         val statement = connection.createStatement()
-        val query: String = sqlProducer(tableName, alarmInfo)
+        val query: String = sqlProducer(tableName,alarm)
         statement.executeUpdate(query)
         success = true
       } catch {

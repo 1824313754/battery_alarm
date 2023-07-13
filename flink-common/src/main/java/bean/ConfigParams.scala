@@ -1,6 +1,6 @@
 package bean
 
-package base
+
 
 import org.apache.flink.api.java.utils.ParameterTool
 import utils.ConnectionPool

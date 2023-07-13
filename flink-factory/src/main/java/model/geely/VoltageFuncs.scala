@@ -1,4 +1,4 @@
-package model
+package model.geely
 
 /**
  * 吉利自唤醒电压分层处理

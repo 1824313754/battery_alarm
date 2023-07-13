@@ -5,11 +5,14 @@ import base.BatteryStateFunction
 import bean.ClickhouseAlarmTable
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
+import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.utils.ParameterTool
+import org.apache.flink.kafka.shaded.org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
+import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer, KafkaDeserializationSchema}
 import sink.ClickHouseSink
+import source.MyKafkaDeserializationSchema
 import transformer.{AlarmCountFunction, AlarmListFlatmap, DataPreprocessing, GpsProcess}
 import utils.GetConfig
 import utils.GetConfig.createConsumerProperties
@@ -27,6 +30,8 @@ object AlarmStreaming extends Serializable with App {
   env.getConfig.setGlobalJobParameters(properties)
   //topic
   val topicString = properties.get("kafka.topic")
+  //消费者组id
+  val groupId = properties.get("kafka.consumer.groupid")
   //获取gps路径
   val gpsPath: String = properties.get("gps.path")
   //注册分布式缓存
@@ -34,9 +39,10 @@ object AlarmStreaming extends Serializable with App {
   val topicList: java.util.List[String] = topicString.split(",").toBuffer.asJava
   val kafkaConsumer: FlinkKafkaConsumer[String] = new FlinkKafkaConsumer(
     topicList,
-    new SimpleStringSchema,
+    new MyKafkaDeserializationSchema(),
     createConsumerProperties(properties)
   )
+
   val dataStream: DataStream[String] = env.addSource(kafkaConsumer)
   //TODO 将kafka中的json数据转换为JSONObject,去掉枚举中AlarmEnum的key
   val jsonStream: DataStream[JSONObject] = dataStream.map(line=>{
@@ -56,13 +62,12 @@ object AlarmStreaming extends Serializable with App {
     value.getString("vin") + JSON.parseObject(value.getString("customField")).get("commandType")
   }).process(batteryStateFunction)
 
-//  val alarmJson: DataStream[JSONObject] = flinkBase.process(value)
   //其中一条报警数据可能包含多个报警类型，所以需要将报警数据拆分成多条
-  val alarmData: DataStream[ClickhouseAlarmTable] = alarmJson.flatMap(new AlarmListFlatmap())
+  val alarmData: DataStream[JSONObject] = alarmJson.flatMap(new AlarmListFlatmap())
   //对报警数据进行计数统计
-  val reslust=alarmData.keyBy((value: ClickhouseAlarmTable) => {
+  val reslust=alarmData.keyBy((value: JSONObject) => {
     //根据vin,alarmType,commandType进行分组
-    value.getVin + value.getAlarm_type + JSON.parseObject(value.getCustomField).get("commandType")
+    value.getString("vin") + value.getString("alarm_type") + value.getJSONObject("customField").get("commandType")
   }).process(new AlarmCountFunction)
 
   //写入clickhouse

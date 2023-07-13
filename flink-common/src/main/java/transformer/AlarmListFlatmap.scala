@@ -1,8 +1,7 @@
 package transformer
 
 import `enum`.AlarmEnum
-import bean.ClickhouseAlarmTable
-import bean.base.ConfigParams
+import bean.{ConfigParams}
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.functions.RichFlatMapFunction
 import org.apache.flink.api.java.utils.ParameterTool
@@ -13,7 +12,7 @@ import utils.CommonFuncs.stringToIntArray
 
 import java.util.UUID
 
-class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, ClickhouseAlarmTable] {
+class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
   //定义一个报警等级的map
   val alarmLevelMap=Map(
     1->"一级报警",
@@ -33,7 +32,7 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, ClickhouseAlarmTa
     vehicleFactoryMap=params.getVehicleFactoryDictInstance()
   }
 
-  override def flatMap(json: JSONObject, out: Collector[ClickhouseAlarmTable]): Unit = {
+  override def flatMap(json: JSONObject, out: Collector[JSONObject]): Unit = {
     for (alarmType <- AlarmEnum.values) {
       if (json.containsKey(alarmType.toString) && json.getIntValue(alarmType.toString) > 0) {
         json.put("alarm_type",alarmType.toString)//报警类型
@@ -89,9 +88,9 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, ClickhouseAlarmTa
         }
 
         //将json映射为AlarmCount对象
-        val alarmCount: ClickhouseAlarmTable = JSON.parseObject(json.toJSONString, classOf[ClickhouseAlarmTable])
+//        val alarmCount: JSONObject = JSON.parseObject(json.toJSONString, classOf[JSONObject])
         //返回对象流
-        out.collect(alarmCount)
+        out.collect(json)
       }
     }
   }

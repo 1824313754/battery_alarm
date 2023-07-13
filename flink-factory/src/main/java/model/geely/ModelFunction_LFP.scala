@@ -1,16 +1,16 @@
-package model
+package model.geely
 
 import `enum`.AlarmEnum
 import com.alibaba.fastjson.{JSON, JSONObject}
-import model.AdvancedFuncs.notSocLayerLFP
-import model.VoltageFuncs.processVoltageLayer
+import model.geely.AdvancedFuncs.notSocLayerLFP
+import model.geely.VoltageFuncs.processVoltageLayer
 import utils.CommonFuncs.{stringToDoubleArray, stringToIntArray}
 import utils.MathFuncs.calcSoc
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-class ModelFunction_LFP extends Serializable {
+object ModelFunction_LFP extends Serializable {
   /**
    * 高温报警
    *

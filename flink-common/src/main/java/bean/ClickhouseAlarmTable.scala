@@ -52,7 +52,4 @@ class ClickhouseAlarmTable() extends  Serializable {
   @BeanProperty var project_name: String = _
   @BeanProperty var customField: String = _
 
-  @BeanProperty var start_time:Long=_
-  @BeanProperty var alarm_count:Int=_
-
 }

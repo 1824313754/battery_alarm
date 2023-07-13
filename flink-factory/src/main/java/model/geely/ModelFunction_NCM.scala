@@ -1,4 +1,4 @@
-package model
+package model.geely
 
 import `enum`.AlarmEnum
 import com.alibaba.fastjson.{JSON, JSONObject}
@@ -8,7 +8,7 @@ import utils.MathFuncs.calcSoc
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-class ModelFunction_NCM extends Serializable {
+object ModelFunction_NCM extends Serializable {
   /**
    * 高温报警
    *
