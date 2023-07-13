@@ -1,6 +1,5 @@
 package org.example
 
-import base.FlinkBase
 import streaming.AlarmStreaming.properties
 
 import scala.reflect.runtime.{universe => ru}

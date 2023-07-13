@@ -1,7 +1,7 @@
 package streaming
 
 import `enum`.AlarmEnum
-import base.FlinkBase
+import base.BatteryStateFunction
 import bean.ClickhouseAlarmTable
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.serialization.SimpleStringSchema
@@ -49,9 +49,14 @@ object AlarmStreaming extends Serializable with App {
 
   //TODO 将json数据预处理关联gpsInfo
   val value: DataStream[JSONObject] = jsonStream.map(new DataPreprocessing).map(new GpsProcess)
-  //反射获取配置文件的FlinkBase实现类
-  val flinkBase: FlinkBase = Class.forName(properties.get("flink.base")).newInstance().asInstanceOf[FlinkBase]
-  val alarmJson: DataStream[JSONObject] = flinkBase.process(value)
+  //  //反射获取配置文件的FlinkBase实现类
+  val batteryStateFunction: BatteryStateFunction = Class.forName(properties.get("flink.base")).newInstance().asInstanceOf[BatteryStateFunction]
+  val alarmJson: DataStream[JSONObject]=value.keyBy((value: JSONObject) => {
+    //根据vin,alarmType,commandType进行分组
+    value.getString("vin") + JSON.parseObject(value.getString("customField")).get("commandType")
+  }).process(batteryStateFunction)
+
+//  val alarmJson: DataStream[JSONObject] = flinkBase.process(value)
   //其中一条报警数据可能包含多个报警类型，所以需要将报警数据拆分成多条
   val alarmData: DataStream[ClickhouseAlarmTable] = alarmJson.flatMap(new AlarmListFlatmap())
   //对报警数据进行计数统计
