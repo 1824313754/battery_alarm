@@ -54,7 +54,7 @@ object AlarmStreaming extends Serializable with App {
   })
 
   //TODO 将json数据预处理关联gpsInfo
-  val value: DataStream[JSONObject] = jsonStream.map(new DataPreprocessing).map(new GpsProcess)
+  val value: DataStream[JSONObject] = jsonStream.map(new DataPreprocessing)
   //  //反射获取配置文件的FlinkBase实现类
   val batteryStateFunction: BatteryStateFunction = Class.forName(properties.get("flink.base")).newInstance().asInstanceOf[BatteryStateFunction]
   val alarmJson: DataStream[JSONObject]=value.keyBy((value: JSONObject) => {
@@ -67,8 +67,8 @@ object AlarmStreaming extends Serializable with App {
   //对报警数据进行计数统计
   val reslust=alarmData.keyBy((value: JSONObject) => {
     //根据vin,alarmType,commandType进行分组
-    value.getString("vin") + value.getString("alarm_type") + value.getJSONObject("customField").get("commandType")
-  }).process(new AlarmCountFunction)
+    value.getString("vin") + value.getString("alarm_type")
+  }).process(new AlarmCountFunction).map(new GpsProcess)
 
   //写入clickhouse
   reslust.addSink(new ClickHouseSink(properties))

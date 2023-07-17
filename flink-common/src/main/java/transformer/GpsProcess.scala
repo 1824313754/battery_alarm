@@ -17,8 +17,8 @@ class GpsProcess extends RichMapFunction[JSONObject, JSONObject]  {
   }
 
   override def map(value: JSONObject): JSONObject = {
-    val lon = value.getDouble("longitude")
-    val lat = value.getDouble("latitude")
+    val lon = value.getDouble("longitude")/1000000
+    val lat = value.getDouble("latitude")/1000000
     val location: Option[Location] = locateProvinceCityDistrict(lat, lon, locations)
     value.put("province",location.get.province)
     value.put("city",location.get.city)

@@ -1,4 +1,4 @@
-package model.geely
+package coom
 
 /**
  * 吉利自唤醒电压分层处理

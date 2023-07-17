@@ -1,6 +1,6 @@
 package sink
 
-import bean.{ClickhouseAlarmTable, ConfigParams, KafkaInfo}
+import bean.{ClickhouseAlarmTable, DictConfig, KafkaInfo}
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.configuration.Configuration

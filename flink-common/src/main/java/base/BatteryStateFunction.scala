@@ -1,6 +1,6 @@
 package base
 
-import bean.ConfigParams
+import bean.DictConfig
 import com.alibaba.fastjson.JSONObject
 import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
 import org.apache.flink.api.java.utils.ParameterTool
@@ -19,7 +19,7 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties= getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    val params = ConfigParams.getInstance(properties)
+    val params = DictConfig.getInstance(properties)
     socData=params.creatInstanceNCM()
   }
 

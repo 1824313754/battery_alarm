@@ -1,9 +1,8 @@
-package base.geely
+package geely
 
 import `enum`.AlarmEnum._
 import base.BatteryStateFunction
 import com.alibaba.fastjson.{JSON, JSONObject}
-import model.geely.{ModelFunction_LFP, ModelFunction_NCM}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer

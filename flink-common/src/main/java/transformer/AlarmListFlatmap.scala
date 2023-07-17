@@ -1,7 +1,7 @@
 package transformer
 
 import `enum`.AlarmEnum
-import bean.{ConfigParams}
+import bean.DictConfig
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.functions.RichFlatMapFunction
 import org.apache.flink.api.java.utils.ParameterTool
@@ -27,7 +27,7 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    val params = ConfigParams.getInstance(properties)
+    val params = DictConfig.getInstance(properties)
     alarmTypeList=params.getAlarmDictInstance()
     vehicleFactoryMap=params.getVehicleFactoryDictInstance()
   }
@@ -36,7 +36,7 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
     for (alarmType <- AlarmEnum.values) {
       if (json.containsKey(alarmType.toString) && json.getIntValue(alarmType.toString) > 0) {
         json.put("alarm_type",alarmType.toString)//报警类型
-        json.put("alarm_level",json.getIntValue(alarmType.toString))//报警等级
+        json.put("level",json.getIntValue(alarmType.toString))//报警等级
         json.put("commandType",JSON.parseObject(json.getString("customField")).getIntValue("commandType"))
         //获取报警类型对应的中文名
         json.put("alarm_name", alarmTypeList.get(alarmType.toString).getOrElse(null))
@@ -80,16 +80,17 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
         if (customField!=null) {
           val commandType: Int = customField.getIntValue("commandType")
           newObject.put("commandType",commandType)
-          val index:Int=customField.getIntValue("index")
-          val yichangdu=customField.getString("yichangdu")
-          newObject.put("index",index)
-          newObject.put("yichangdu",yichangdu)
+          if(customField.containsKey("index")){
+            val index:Int=customField.getIntValue("index")
+            newObject.put("index",index)
+          }
+          if (customField.containsKey("yichangdu")){
+            val yichangdu=customField.getString("yichangdu")
+            newObject.put("yichangdu",yichangdu)
+          }
           json.put("customField", newObject.toString)
         }
 
-        //将json映射为AlarmCount对象
-//        val alarmCount: JSONObject = JSON.parseObject(json.toJSONString, classOf[JSONObject])
-        //返回对象流
         out.collect(json)
       }
     }

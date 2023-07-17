@@ -8,14 +8,14 @@ import utils.ConnectionPool
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-object ConfigParams {
- @volatile private var instance: ConfigParams = _
+object DictConfig {
+ @volatile private var instance: DictConfig = _
 
-  def getInstance(properties: ParameterTool): ConfigParams = {
+  def getInstance(properties: ParameterTool): DictConfig = {
     if (instance == null) {
       synchronized {
         if (instance == null) {
-          instance = new ConfigParams(properties)
+          instance = new DictConfig(properties)
         }
       }
     }
@@ -23,7 +23,7 @@ object ConfigParams {
   }
 }
 
-class ConfigParams private(properties: ParameterTool) {
+class DictConfig private(properties: ParameterTool) {
   @volatile private var ocvTable: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   @volatile private var alarmDict: Map[String, String] = _
   @volatile private var vehicleFactoryDict: Map[Int, String] = _

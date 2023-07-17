@@ -28,4 +28,8 @@ object AlarmEnum  extends  Enumeration{
   val isAdjacentMonomerAbnormal=Value("isAdjacentMonomerAbnormal")//相邻单体故障
   val batteryStaticConsistencyPoor=Value("batteryStaticConsistencyPoor")//静态压差
   val isAbnormalinternalResistance=Value("isAbnormalinternalResistance")//内阻异常
+  val safeVoltageRise=Value("safeVoltageRise")//安全机理部电压策略
+  val safeTemperatureChange=Value("safeTemperatureChange")//安全机理部温升策略1
+  val safeTemperatureRise=Value("safeTemperatureRise")//安全机理部温升策略2
+  val slaveDisconnect=Value("slaveDisconnect")//从机掉线
 }

@@ -1,4 +1,4 @@
-package model.geely
+package coom
 
 import com.alibaba.fastjson.JSONObject
 import utils.CommonFuncs.stringToIntArray
