@@ -12,7 +12,7 @@ import utils.RedisUtil
 import utils.SqlUtils.sqlProducer
 
 /**
- * 写入clickhouse
+ * 写入clickhouse，失败可重连
  * @param properties
  * @param <T>
  *
@@ -23,7 +23,7 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObj
   private val tableName: String = properties.get("clickhouse.table")
   //重试次数
   private val maxRetries: Int = properties.getInt("clickhouse.maxRetries", 3)
-  private var redisUtil: RedisUtil = _
+//  private var redisUtil: RedisUtil = _
   override def open(parameters: Configuration): Unit = {
     connect()
   }
@@ -43,7 +43,7 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObj
           retries += 1
           if (retries < maxRetries) {
             println(s"Writing record failed, retrying ($retries/$maxRetries)." + e.getMessage)
-            connect() // Reconnect before retrying
+            connect() // 重连
           } else {
             println(s"Max retries exceeded. Failed to write to ClickHouse.")
             e.printStackTrace()

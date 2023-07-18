@@ -4,13 +4,10 @@ import `enum`.AlarmEnum
 import base.BatteryStateFunction
 import bean.ClickhouseAlarmTable
 import com.alibaba.fastjson.{JSON, JSONObject}
-import org.apache.flink.api.common.serialization.SimpleStringSchema
-import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.kafka.shaded.org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
-import org.apache.flink.streaming.connectors.kafka.{FlinkKafkaConsumer, KafkaDeserializationSchema}
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
 import sink.ClickHouseSink
 import source.MyKafkaDeserializationSchema
 import transformer.{AlarmCountFunction, AlarmListFlatmap, DataPreprocessing, GpsProcess}

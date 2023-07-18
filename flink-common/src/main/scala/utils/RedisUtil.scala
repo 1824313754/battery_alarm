@@ -51,5 +51,20 @@ class RedisUtil private(properties: ParameterTool) extends Serializable {
     }
   }
 
+  def getKey(key: String, database: Int): String = {
+    var jedis: Jedis = null
+    try {
+      jedis = jedisPool.getResource
+      jedis.select(database)
+      jedis.get(key)
+    } catch {
+      case e: Exception =>
+        null
+    } finally {
+      if (jedis != null)
+        jedis.close()
+    }
+  }
+
 }
 
