@@ -5,35 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="暂存">
+      <change afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/bean/ClickhouseAlarmTable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/ClickhouseAlarmTable.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/bean/DictConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/bean/KafkaInfo.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/KafkaInfo.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/enum/AlarmEnum.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/enum/AlarmEnum.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/sink/ClickHouseSink.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/source/MyKafkaDeserializationSchema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/streaming/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/transformer/AlarmCountFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmCountFunction.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/transformer/AlarmListFlatmap.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/transformer/DataPreprocessing.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/DataPreprocessing.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/CommonFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/CommonFuncs.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/ConnectionPool.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/ConnectionPool.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/GetConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/GetConfig.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/MathFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/MathFuncs.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/RedisUtil.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/RedisUtil.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/java/utils/SqlUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/SqlUtils.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/coom/AdvancedFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/AdvancedFuncs.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/coom/VoltageFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/VoltageFuncs.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/geely/ModelFunction_LFP.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_LFP.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/geely/ModelFunction_NCM.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_NCM.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/ruichi/RC.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RC.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/java/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +35,13 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
   </component>
@@ -72,12 +58,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "F:/battery/alarm/flink-factory/src/main/java/geely",
+    "last_opened_file_path": "F:/chuneng/battery_alarm/flink-factory/pom.xml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "全局库",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
@@ -99,7 +86,7 @@
       <recent name="transformer" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.streaming.AlarmStreaming">
+  <component name="RunManager" selected="应用程序.streaming.AlarmStreaming (1)">
     <configuration name="AlarmStreaming" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
       <module name="alarm" />
@@ -107,19 +94,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="streaming.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="SqlUtils" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="utils.SqlUtils" />
-      <module name="flink-common" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -140,9 +114,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="streaming.AlarmStreaming" type="Application" factoryName="Application" temporary="true">
+    <configuration name="streaming.AlarmStreaming (1)" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
       <module name="flink-common" />
+      <option name="PROGRAM_PARAMETERS" value="--config_path F:\chuneng\battery_alarm\test.properties" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="streaming.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="streaming.AlarmStreaming" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
+      <module name="flink-factory" />
       <option name="PROGRAM_PARAMETERS" value="--config_path F:\battery\alarm\test.properties" />
       <extension name="coverage">
         <pattern>
@@ -167,20 +155,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="battery_alarm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="battery_alarm" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
       <item itemvalue="应用程序.streaming.Test" />
       <item itemvalue="应用程序.Test" />
       <item itemvalue="应用程序.streaming.AlarmStreaming" />
-      <item itemvalue="应用程序.SqlUtils" />
       <item itemvalue="应用程序.AlarmStreaming" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
         <item itemvalue="应用程序.streaming.AlarmStreaming" />
         <item itemvalue="应用程序.streaming.Test" />
         <item itemvalue="应用程序.Test" />
         <item itemvalue="应用程序.AlarmStreaming" />
-        <item itemvalue="应用程序.SqlUtils" />
       </list>
     </recent_temporary>
   </component>
@@ -197,6 +198,7 @@
       <workItem from="1689140272338" duration="17657000" />
       <workItem from="1689556726658" duration="14032000" />
       <workItem from="1689643825242" duration="5646000" />
+      <workItem from="1689670932624" duration="1667000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <created>1689058431673</created>

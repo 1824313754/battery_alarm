@@ -1,5 +1,6 @@
 package ruichi
 
+
 import `enum`.AlarmEnum._
 import base.BatteryStateFunction
 import com.alibaba.fastjson.{JSON, JSONObject}
