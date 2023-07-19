@@ -36,7 +36,6 @@ class RuichiBattery extends BatteryStateFunction{
     batteryStaticConsistencyPoor.toString -> 1,
     isAbnormalinternalResistance.toString -> 1
   )
-   val key: String = "RuiChi_004:"
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
   lazy val socDataRC: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]] =socData.getOrElse("RuiChi-63AH",null)
   override def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject = {
@@ -67,4 +66,6 @@ class RuichiBattery extends BatteryStateFunction{
     }
     new_data
   }
+
+   def getRediesKey(): String = "RuiChi_004:"
 }

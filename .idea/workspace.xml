@@ -5,14 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="暂存">
-      <change afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,8 +63,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
+    "project.structure.last.edited": "全局库",
+    "project.structure.proportion": "0.15078124",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
@@ -86,14 +85,14 @@
       <recent name="transformer" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.streaming.AlarmStreaming (1)">
-    <configuration name="AlarmStreaming" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
-      <module name="alarm" />
-      <option name="PROGRAM_PARAMETERS" value="--config_path F:\battery\alarm\test.properties" />
+  <component name="RunManager" selected="应用程序.GeelyAlarm">
+    <configuration name="GeelyAlarm" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="geely.GeelyAlarm" />
+      <module name="flink-factory" />
+      <option name="PROGRAM_PARAMETERS" value="--config_path F:\chuneng\battery_alarm\test.properties" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="streaming.*" />
+          <option name="PATTERN" value="geely.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -169,19 +168,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="应用程序.GeelyAlarm" />
       <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
       <item itemvalue="应用程序.streaming.Test" />
       <item itemvalue="应用程序.Test" />
       <item itemvalue="应用程序.streaming.AlarmStreaming" />
-      <item itemvalue="应用程序.AlarmStreaming" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.GeelyAlarm" />
         <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
         <item itemvalue="应用程序.streaming.AlarmStreaming" />
         <item itemvalue="应用程序.streaming.Test" />
         <item itemvalue="应用程序.Test" />
-        <item itemvalue="应用程序.AlarmStreaming" />
       </list>
     </recent_temporary>
   </component>
@@ -253,9 +252,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala</url>
-          <line>52</line>
-          <option name="timeStamp" value="10" />
+          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala</url>
+          <line>17</line>
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-defaults>

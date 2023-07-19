@@ -128,4 +128,5 @@ class GeelyBattery extends BatteryStateFunction{
     }
   }
 
+  def getRediesKey(): String = "Geely-005"
 }

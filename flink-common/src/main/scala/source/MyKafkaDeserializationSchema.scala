@@ -4,13 +4,12 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.typeinfo.TypeInformation
 import org.apache.flink.kafka.shaded.org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.flink.streaming.connectors.kafka.KafkaDeserializationSchema
-import streaming.AlarmStreaming.groupId
 
 /**
  * 自定义kafka反序列化
  * 将kafka中的topic和offset添加到json中
  */
-class MyKafkaDeserializationSchema() extends KafkaDeserializationSchema[String]{
+class MyKafkaDeserializationSchema(groupId:String) extends KafkaDeserializationSchema[String]{
   override def isEndOfStream(t: String): Boolean = {
     false
   }

@@ -18,19 +18,13 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
   var socData: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   //redis实例
   var redis: RedisUtil = _
-   var redisKey: String = _
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties= getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
     val params = DictConfig.getInstance(properties)
     socData=params.creatInstanceNCM()
     redis=RedisUtil.getInstance(properties)
-    //获取反射对象
-    val base = Class.forName(properties.get("flink.base")).newInstance()
-    val fields = base.getClass.getDeclaredFields
-    fields.foreach(_.setAccessible(true))
-    //获取成员变量timeInterval和alarmLevelMap
-    redisKey = fields.filter(_.getName == "key").head.get(base).asInstanceOf[String]
+
   }
 
   override def processElement(value: JSONObject, ctx: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, out: Collector[JSONObject]): Unit =
@@ -40,11 +34,11 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
       var last_json=lastValueState.value()
       if (last_json == null) {
        //从redis获取
-        last_json=JSON.parseObject(redis.getKey(redisKey+vin,10))
+        last_json=JSON.parseObject(redis.getKey(getRediesKey+vin,10))
       }
       val json = batteryRuleProcessing(last_json, value)
       //保存到redis
-      redis.setKey(redisKey+vin,json.toJSONString,10)
+      redis.setKey(getRediesKey+vin,json.toJSONString,10)
       lastValueState.update(json)
       out.collect(json)
     }
@@ -52,5 +46,5 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
   //定义一个抽象方法，用于处理电池数据
   def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject
 
-
+  def getRediesKey(): String
 }
