@@ -5,13 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="暂存">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyAlarm.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,25 +65,30 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "F:/chuneng/battery_alarm/flink-factory/pom.xml",
+    "last_opened_file_path": "F:/chuneng/battery_alarm",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "全局库",
+    "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15078124",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "spring.configuration.checksum": "036aa9013705d788fa480f6848da88a8"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\chuneng\battery_alarm" />
       <recent name="F:\battery\alarm\flink-factory\src\main\java\geely" />
       <recent name="F:\battery\alarm\flink-factory\src\main\java\model\geely" />
       <recent name="F:\battery\alarm\flink-common\src\main\java\bean" />
       <recent name="F:\battery\alarm" />
-      <recent name="F:\battery\alarm\flink-common\src\main\java" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\chuneng\battery_alarm\flink-common" />
+      <recent name="F:\chuneng\battery_alarm\flink-factory" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="model.ruichi" />
@@ -85,7 +98,15 @@
       <recent name="transformer" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.GeelyAlarm">
+  <component name="RunManager" selected="应用程序.AlarmStart">
+    <configuration name="AlarmStart" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="AlarmStart" />
+      <module name="flink-factory" />
+      <option name="PROGRAM_PARAMETERS" value="--config_path F:\chuneng\battery_alarm\test.properties" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GeelyAlarm" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="geely.GeelyAlarm" />
       <module name="flink-factory" />
@@ -93,19 +114,6 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="geely.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="bean.Test" />
-      <module name="flink-common" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="bean.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -168,19 +176,19 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="应用程序.AlarmStart" />
       <item itemvalue="应用程序.GeelyAlarm" />
       <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
       <item itemvalue="应用程序.streaming.Test" />
-      <item itemvalue="应用程序.Test" />
       <item itemvalue="应用程序.streaming.AlarmStreaming" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.AlarmStart" />
         <item itemvalue="应用程序.GeelyAlarm" />
         <item itemvalue="应用程序.streaming.AlarmStreaming (1)" />
         <item itemvalue="应用程序.streaming.AlarmStreaming" />
         <item itemvalue="应用程序.streaming.Test" />
-        <item itemvalue="应用程序.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -198,6 +206,7 @@
       <workItem from="1689556726658" duration="14032000" />
       <workItem from="1689643825242" duration="5646000" />
       <workItem from="1689670932624" duration="1667000" />
+      <workItem from="1689756766040" duration="21945000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <created>1689058431673</created>
@@ -227,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689579222193</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="暂存">
+      <created>1689753709545</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1689753709545</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,13 +266,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/source/MyKafkaDeserializationSchema.scala</url>
-          <line>17</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-defaults>
         <breakpoint suspend="THREAD" type="scala-line" />
       </breakpoints-defaults>

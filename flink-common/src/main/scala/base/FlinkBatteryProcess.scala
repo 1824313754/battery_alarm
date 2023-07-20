@@ -4,9 +4,7 @@ import org.apache.commons.lang3.StringUtils
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
 import org.apache.flink.api.common.time.Time
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.contrib.streaming.state.RocksDBStateBackend
-import org.apache.flink.streaming.api.environment.{CheckpointConfig, StreamExecutionEnvironment}
-import org.apache.flink.util.Preconditions
+import org.apache.flink.streaming.api.environment.{StreamExecutionEnvironment}
 import streaming.AlarmStreaming.batteryProcess
 import utils.GetConfig
 
@@ -31,7 +29,7 @@ trait FlinkBatteryProcess {
     else if ("noRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.noRestart)
     else if ("fallBackRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.fallBackRestart)
     else env.setRestartStrategy(RestartStrategies.failureRateRestart(3, Time.of(5, TimeUnit.MINUTES), Time.of(60, TimeUnit.SECONDS)))
-    val isLocal = properties.get("isLocal")
+//    val isLocal = properties.get("isLocal")
 //    if (StringUtils.isBlank(isLocal)) {
 //      val isIncremental = properties.get("isIncremental")
 //      Preconditions.checkNotNull(isIncremental, "isIncremental is null")

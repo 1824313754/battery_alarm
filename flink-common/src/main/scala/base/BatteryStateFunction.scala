@@ -12,7 +12,7 @@ import utils.RedisUtil
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject]{
+trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject]{
   lazy val lastValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastValueStateLFP", classOf[JSONObject]))
   //定义一个值，用来保存TreeMap[Int,ArrayBuffer[(Int,Float)]]
   var socData: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
@@ -24,7 +24,6 @@ abstract class BatteryStateFunction extends KeyedProcessFunction[String, JSONObj
     val params = DictConfig.getInstance(properties)
     socData=params.creatInstanceNCM()
     redis=RedisUtil.getInstance(properties)
-
   }
 
   override def processElement(value: JSONObject, ctx: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, out: Collector[JSONObject]): Unit =

@@ -27,7 +27,39 @@ class DictConfig private(properties: ParameterTool) {
   @volatile private var ocvTable: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   @volatile private var alarmDict: Map[String, String] = _
   @volatile private var vehicleFactoryDict: Map[Int, String] = _
-
+  @volatile private var projectName: Map[String,(Int,String,String)] = _
+  private def getProjectName(): Map[String,(Int,String,String)] = {
+    val conn = ConnectionPool.getConnection(properties)
+    val sql:String="select a.vin,a.ProID,b.`Code`,b.`Name` from (select vin,ProID from GX_Vin) a,(select id,`Code`,`Name` from GX_Project2) b where a.ProID=b.id "
+    //设置参数
+    val prepareStatement = conn.prepareStatement(sql)
+    val result = prepareStatement.executeQuery()
+    // 定义一个map，用于存放查询结果
+    var projectNameMap = Map[String, (Int, String, String)]()
+    while (result.next()){
+      val vin = result.getString("vin")
+      val proID = result.getInt("ProID")
+      val code = result.getString("Code")
+      val name = result.getString("Name")
+      //vin码作为key,proID,code,name作为value
+      projectNameMap+=(vin->(proID,code,name))
+    }
+    // 完成后关闭
+    prepareStatement.close();
+    ConnectionPool.closeConnection(conn)
+    projectNameMap
+  }
+  def getProjectNameInstance(): Map[String,(Int,String,String)] = {
+    if (projectName == null) {
+      synchronized {
+        if (projectName == null) {
+          println("GetProjectName")
+          projectName = getProjectName
+        }
+      }
+    }
+    projectName
+  }
   private def getOcvNCMData(): Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
     val conn = ConnectionPool.getConnection(properties)
     val sql: String = "SELECT BatteryAh,BatteryTemp,BatteryCellVol,BatterySoc from battery.GX_Ocv order by id"

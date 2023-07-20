@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 
 class RuichiBattery extends BatteryStateFunction{
   //定义车厂2帧的数据时间间隔(s)
-  val timeInterval = 10
+  val timeInterval = 15
   //设置报警对应的报警次数
   val mapCount: Map[String, Int] = Map(
     batteryHighTemperature.toString -> 1,
@@ -67,5 +67,5 @@ class RuichiBattery extends BatteryStateFunction{
     new_data
   }
 
-   def getRediesKey(): String = "RuiChi_004:"
+  override def getRediesKey(): String = "RuiChi_004:"
 }

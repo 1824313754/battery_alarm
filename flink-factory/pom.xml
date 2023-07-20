@@ -6,7 +6,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>flink-factory</artifactId>
     <groupId>org.apache.flink</groupId>
-    <version>1.12</version>
+    <version>1.13</version>
+
     <properties>
         <scala.version>2.12</scala.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -20,8 +21,43 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-common</artifactId>
             <version>1.12</version>
+            <scope> compile</scope>
         </dependency>
 
     </dependencies>
+    <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.2</version>
+                <configuration>
+                    <recompileMode>incremental</recompileMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>scala-compile-first</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>scala-test-compile</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+
+
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>

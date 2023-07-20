@@ -23,6 +23,7 @@ class GpsProcess extends RichMapFunction[JSONObject, JSONObject]  {
     value.put("province",location.get.province)
     value.put("city",location.get.city)
     value.put("area",location.get.district)
+    value.put("region",location.get.region)
 //    value.put("region",location.get.province+location.get.city+location.get.district)
     value
   }
@@ -32,12 +33,13 @@ class GpsProcess extends RichMapFunction[JSONObject, JSONObject]  {
   def parseLocations(locationList: List[String]): List[Location] = {
     locationList.map { locationString =>
       val parts = locationString.split(",")
-      val province = parts(0).replace("i18n_", "")
-      val city = parts(1).replace("i18n_", "")
-      val district = parts(2).replace("i18n_", "")
+      val province = parts(0)
+      val city = parts(1)
+      val district = parts(2)
       val latitude = parts(3).toDouble
       val longitude = parts(4).toDouble
-      Location(province, city, district, latitude, longitude)
+      val region = parts(5)
+      Location(province, city, district, latitude, longitude,region)
     }
   }
 
@@ -70,5 +72,5 @@ class GpsProcess extends RichMapFunction[JSONObject, JSONObject]  {
     closestLocation
   }
   // 创建一个类来表示位置信息
-  case class Location(province: String, city: String, district: String, latitude: Double, longitude: Double)
+  case class Location(province: String, city: String, district: String, latitude: Double, longitude: Double,region:String)
 }

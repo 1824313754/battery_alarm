@@ -24,12 +24,15 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
   var alarmTypeList:Map[String,String] = _
   //定义车厂号和车厂名称的map
   var vehicleFactoryMap:Map[Int,String] = _
+  //定义一个项目号和项目名称的map
+  var projectMap:Map[String,(Int,String,String)] = _
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
     val params = DictConfig.getInstance(properties)
     alarmTypeList=params.getAlarmDictInstance()
     vehicleFactoryMap=params.getVehicleFactoryDictInstance()
+    projectMap=params.getProjectNameInstance()
   }
 
   override def flatMap(json: JSONObject, out: Collector[JSONObject]): Unit = {
@@ -51,7 +54,17 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
         json.put("vehicle_factory_name",vehicleFactoryMap.get(json.getIntValue("vehicleFactory")).getOrElse(null))
         json.put("uuid",UUID.randomUUID().toString)
         json.put("process_time",CommonFuncs.getTimeStr())//报警开始时间
-
+        //根据vin获取projectNameMapValue元祖中的第二个元素和第三个元素
+        //若json中不包含project_id和project_code，project_name
+        if (!json.containsKey("project_name")) {
+          val vin = json.getString("vin")
+          val project_id= projectMap.get(vin).map(_._1).getOrElse(0)
+          val project_code= projectMap.get(vin).map(_._2).getOrElse(null)
+          val project_name= projectMap.get(vin).map(_._3).getOrElse(null)
+          json.put("project_id", project_id)
+          json.put("project_code", project_code)
+          json.put("project_name", project_name)
+        }
         //取出电压和温度数组计算平均值
         val probeTemperaturesArray: Array[Int] = stringToIntArray(json.getString("probeTemperatures"))
         val cellVoltagesArray: Array[Int] = stringToIntArray(json.getString("cellVoltages"))

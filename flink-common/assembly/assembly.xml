@@ -1,0 +1,20 @@
+<assembly>
+    <id>jar-with-dep</id>
+    <!-- 最终打包成一个用于发布的jar文件 -->
+    <formats>
+        <format>jar</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+
+    <!--这里就是依赖的那些jar包-->
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/</outputDirectory>
+            <useProjectArtifact>false</useProjectArtifact>
+            <unpack>true</unpack><!--这里一定要注意,一定要加上，不然结果就会变成jar包里面是jar包，而不是散的class-->
+            <scope>runtime</scope>
+        </dependencySet>
+    </dependencySets>
+    <!--这里就是依赖的那些jar包-->
+</assembly>
