@@ -5,21 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="暂存">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/utils/CommonFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/CommonFuncs.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/utils/MathFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/MathFuncs.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/utils/SqlUtils.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/SqlUtils.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyAlarm.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/AdvancedFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/AdvancedFuncs.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/VoltageFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/coom/VoltageFuncs.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +69,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "模块",
+    "project.structure.last.edited": "全局库",
     "project.structure.proportion": "0.15078124",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "preferences.pluginManager",
@@ -206,7 +204,7 @@
       <workItem from="1689556726658" duration="14032000" />
       <workItem from="1689643825242" duration="5646000" />
       <workItem from="1689670932624" duration="1667000" />
-      <workItem from="1689756766040" duration="21945000" />
+      <workItem from="1689756766040" duration="26866000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <created>1689058431673</created>
@@ -243,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689753709545</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="暂存">
+      <created>1689844629669</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1689844629669</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

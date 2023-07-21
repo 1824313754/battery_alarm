@@ -12,7 +12,7 @@ import java.text.SimpleDateFormat
 import java.util.{Date, Properties}
 import java.util.concurrent.TimeUnit
 
-trait FlinkBatteryProcess {
+trait FlinkBatteryProcess extends Serializable {
   protected var env: StreamExecutionEnvironment = _
   protected var properties: ParameterTool = _
   def init(args: Array[String]): Unit = {
@@ -24,11 +24,11 @@ trait FlinkBatteryProcess {
     properties = GetConfig.getProperties(fileName)
     //注册为全局变量
     env.getConfig.setGlobalJobParameters(properties)
-    val restartStrategy = properties.get("restartStrategy")
-    if ("fixedDelayRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, Time.of(60, TimeUnit.SECONDS)))
-    else if ("noRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.noRestart)
-    else if ("fallBackRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.fallBackRestart)
-    else env.setRestartStrategy(RestartStrategies.failureRateRestart(3, Time.of(5, TimeUnit.MINUTES), Time.of(60, TimeUnit.SECONDS)))
+//    val restartStrategy = properties.get("restartStrategy")
+//    if ("fixedDelayRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, Time.of(60, TimeUnit.SECONDS)))
+//    else if ("noRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.noRestart)
+//    else if ("fallBackRestart" == restartStrategy) env.setRestartStrategy(RestartStrategies.fallBackRestart)
+//    else env.setRestartStrategy(RestartStrategies.failureRateRestart(3, Time.of(5, TimeUnit.MINUTES), Time.of(60, TimeUnit.SECONDS)))
 //    val isLocal = properties.get("isLocal")
 //    if (StringUtils.isBlank(isLocal)) {
 //      val isIncremental = properties.get("isIncremental")

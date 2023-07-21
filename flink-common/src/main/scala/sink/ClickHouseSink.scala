@@ -57,13 +57,28 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObj
   }
 
   private def connect(): Unit = {
-    val clickPro = new ClickHouseProperties()
-    clickPro.setUser(properties.get("clickhouse.user"))
-    clickPro.setPassword(properties.get("clickhouse.passwd"))
-    val source = new BalancedClickhouseDataSource(properties.get("clickhouse.conn"), clickPro)
-    source.actualize()
-    connection = source.getConnection
+    var connected = false
+    var retries = 0
+    while (!connected && retries < maxRetries) {
+      try {
+        val clickPro = new ClickHouseProperties()
+        clickPro.setUser(properties.get("clickhouse.user"))
+        clickPro.setPassword(properties.get("clickhouse.passwd"))
+        val source = new BalancedClickhouseDataSource(properties.get("clickhouse.conn"), clickPro)
+        source.actualize()
+        connection = source.getConnection
+        connected = true
+      } catch {
+        case e: Exception =>
+          retries += 1
+          if (retries < maxRetries) {
+            println(s"Failed to connect to ClickHouse, retrying ($retries/$maxRetries)." + e.getMessage)
+          } else {
+            println(s"Max retries exceeded. Failed to connect to ClickHouse.")
+            e.printStackTrace()
+          }
+      }
+    }
+
   }
-}
-
-
+  }

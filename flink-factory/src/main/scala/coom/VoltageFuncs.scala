@@ -3,7 +3,7 @@ package coom
 /**
  * 吉利自唤醒电压分层处理
  */
-object VoltageFuncs {
+object VoltageFuncs extends Serializable{
   def processVoltageLayer(old_cellVoltages: Array[Int], cellVoltages: Array[Int]): Array[Int] = {
     var modifiedArray: Array[Int] = null
     if (old_cellVoltages != null && old_cellVoltages.length == cellVoltages.length) {

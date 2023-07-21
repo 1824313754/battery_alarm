@@ -20,8 +20,7 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-common</artifactId>
-            <version>1.12</version>
-            <scope> compile</scope>
+            <version>1.13</version>
         </dependency>
 
     </dependencies>

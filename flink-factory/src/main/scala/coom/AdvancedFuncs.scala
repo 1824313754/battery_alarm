@@ -3,7 +3,7 @@ package coom
 import com.alibaba.fastjson.JSONObject
 import utils.CommonFuncs.stringToIntArray
 
-object AdvancedFuncs {
+object AdvancedFuncs extends Serializable{
   /**
    * 铁锂：与最小电压相近单体达一定数量 => 电压分层 => 两帧报警
    */

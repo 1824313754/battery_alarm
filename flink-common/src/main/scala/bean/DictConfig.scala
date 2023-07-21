@@ -23,7 +23,7 @@ object DictConfig {
   }
 }
 
-class DictConfig private(properties: ParameterTool) {
+class DictConfig private(properties: ParameterTool) extends Serializable{
   @volatile private var ocvTable: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   @volatile private var alarmDict: Map[String, String] = _
   @volatile private var vehicleFactoryDict: Map[Int, String] = _

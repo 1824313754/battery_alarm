@@ -6,7 +6,7 @@ import bean.ClickhouseAlarmTable
  * 反射生成insert语句
  */
 
-object SqlUtils {
+object SqlUtils extends Serializable{
   def sqlProducer[T](tableName: String, scalaObject: T): String = {
     // 获取父类的属性
     val fields = scalaObject.getClass.getDeclaredFields

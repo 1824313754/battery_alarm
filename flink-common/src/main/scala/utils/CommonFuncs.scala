@@ -2,7 +2,7 @@ package utils
 
 import java.text.SimpleDateFormat
 
-object CommonFuncs {
+object CommonFuncs  extends Serializable{
 
   /**
     *

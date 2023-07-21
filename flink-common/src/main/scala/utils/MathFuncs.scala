@@ -3,7 +3,7 @@ package utils
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-object MathFuncs {
+object MathFuncs extends Serializable{
   /**
    * 线性插值
    *

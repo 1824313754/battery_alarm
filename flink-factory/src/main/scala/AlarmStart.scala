@@ -1,6 +1,10 @@
 import base.{FlinkBatteryProcess}
 
-object AlarmStart extends FlinkBatteryProcess with App {
-  override def getJobName(): String = properties.get("flink.base")
-  run(args)
+object AlarmStart extends FlinkBatteryProcess  {
+  def main(args: Array[String]): Unit = {
+
+    run(args)
+  }
+
+  override def getJobName(): String = "run AlarmStart"
 }
