@@ -13,28 +13,29 @@ class RuichiBattery extends BatteryStateFunction{
   val timeInterval = 15
   //设置报警对应的报警次数
   val mapCount: Map[String, Int] = Map(
-    batteryHighTemperature.toString -> 1,
+    batteryHighTemperature.toString -> 3,
     socJump.toString -> 1,
     socHigh.toString -> 1,
-    monomerBatteryUnderVoltage.toString -> 1,
-    monomerBatteryOverVoltage.toString -> 1,
-    deviceTypeUnderVoltage.toString -> 1,
-    deviceTypeOverVoltage.toString -> 1,
-    batteryConsistencyPoor.toString -> 1,
+    monomerBatteryUnderVoltage.toString -> 3,
+    monomerBatteryOverVoltage.toString -> 3,
+    deviceTypeUnderVoltage.toString -> 3,
+    deviceTypeOverVoltage.toString -> 3,
+    batteryConsistencyPoor.toString -> 3,
     insulation.toString -> 1,
-    socLow.toString -> 1,
-    temperatureDifferential.toString -> 1,
-    voltageJump.toString -> 1,
-    socNotBalance.toString -> 1,
-    electricBoxWithWater.toString -> 1,
-    outFactorySafetyInspection.toString -> 1,
-    abnormalTemperature.toString -> 1,
-    abnormalVoltage.toString -> 1,
-    voltageLineFall.toString -> 1,
-    tempLineFall.toString -> 1,
-    isAdjacentMonomerAbnormal.toString -> 1,
+    socLow.toString -> 3,
+    temperatureDifferential.toString -> 3,
+    voltageJump.toString -> 3,
+    socNotBalance.toString -> 3,
+    electricBoxWithWater.toString -> 3,
+    outFactorySafetyInspection.toString -> 3,
+    abnormalTemperature.toString -> 8,
+    abnormalVoltage.toString -> 8,
+    voltageLineFall.toString -> 8,
+    tempLineFall.toString -> 8,
+    slaveDisconnect.toString -> 8,
+    isAdjacentMonomerAbnormal.toString -> 3,
     batteryStaticConsistencyPoor.toString -> 1,
-    isAbnormalinternalResistance.toString -> 1
+    isAbnormalinternalResistance.toString -> 3
   )
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
   lazy val socDataRC: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]] =socData.getOrElse("RuiChi-63AH",null)

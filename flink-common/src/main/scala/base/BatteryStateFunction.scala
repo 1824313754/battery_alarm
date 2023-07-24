@@ -12,7 +12,7 @@ import utils.RedisUtil
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject]{
+trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject] {
   lazy val lastValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastValueStateLFP", classOf[JSONObject]))
   //定义一个值，用来保存TreeMap[Int,ArrayBuffer[(Int,Float)]]
   var socData: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
@@ -41,9 +41,7 @@ trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSON
       lastValueState.update(json)
       out.collect(json)
     }
-
-  //定义一个抽象方法，用于处理电池数据
-  def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject
+  def batteryRuleProcessing(last_json:JSONObject,value:JSONObject):JSONObject
 
   def getRediesKey(): String
 }

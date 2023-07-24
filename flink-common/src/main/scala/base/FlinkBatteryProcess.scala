@@ -2,15 +2,13 @@ package base
 
 import org.apache.commons.lang3.StringUtils
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
-import org.apache.flink.api.common.time.Time
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.streaming.api.environment.{StreamExecutionEnvironment}
 import streaming.AlarmStreaming.batteryProcess
 import utils.GetConfig
 
 import java.text.SimpleDateFormat
-import java.util.{Date, Properties}
-import java.util.concurrent.TimeUnit
+import java.util.{Date}
 
 trait FlinkBatteryProcess extends Serializable {
   protected var env: StreamExecutionEnvironment = _
@@ -22,6 +20,10 @@ trait FlinkBatteryProcess extends Serializable {
     val tool: ParameterTool = ParameterTool.fromArgs(args)
     val fileName: String = tool.get("config_path")
     properties = GetConfig.getProperties(fileName)
+    //设置checkpoint
+    env.enableCheckpointing(1000)
+    //设置重启策略，3次重启，每次间隔5秒
+    env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, 5000))
     //注册为全局变量
     env.getConfig.setGlobalJobParameters(properties)
 //    val restartStrategy = properties.get("restartStrategy")
