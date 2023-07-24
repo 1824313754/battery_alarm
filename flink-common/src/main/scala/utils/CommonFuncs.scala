@@ -41,20 +41,6 @@ object CommonFuncs  extends Serializable{
 
 
 
-  /*
-    *获取经纬度RDD
-     */
-  def locateCityRDD(lon :Double ,lat :Double,gps_rdd :Array[String]) :String={
-//    println(s"-------${gps_rdd.length}")
-    val current_place = gps_rdd.map(rdd =>{
-      val splits = rdd.split(",")
-      val llat = splits(3).toDouble
-      val llon = splits(4).toDouble
-      (splits(0),splits(1),splits(2),splits(5),(llat - lat) * (llat - lat) + (llon - lon) * (llon - lon))
-    }).sortBy(x => x._5)
-      .take(1)
-    current_place.mkString(",")
-  }
   def getTimeStr(): String = {
     // 获取当前时间
     val now = System.currentTimeMillis()
