@@ -1,6 +1,6 @@
 package sink
 
-import bean.{ClickhouseAlarmTable, DictConfig, KafkaInfo}
+import bean.ClickhouseAlarmTable
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.configuration.Configuration
@@ -18,7 +18,7 @@ import utils.SqlUtils.sqlProducer
  *
  */
 
-class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObject] {
+class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[String] {
   private var connection: ClickHouseConnection = _
   private val tableName: String = properties.get("clickhouse.table")
   //重试次数
@@ -28,10 +28,10 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[JSONObj
     connect()
   }
 
-  override def invoke(alarmInfo: JSONObject, context: Context): Unit = {
+  override def invoke(alarmInfo: String, context: Context): Unit = {
     var retries = 0
     var success = false
-    val alarm = alarmInfo.toJavaObject(classOf[ClickhouseAlarmTable])
+    val alarm =JSON.parseObject(alarmInfo).toJavaObject(classOf[ClickhouseAlarmTable])
     while (!success && retries < maxRetries) {
       try {
         val statement = connection.createStatement()

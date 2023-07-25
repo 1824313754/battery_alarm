@@ -30,6 +30,7 @@ class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
     //获取全局变量
     val properties = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
     val params = DictConfig.getInstance(properties)
+//    println("params:"+params)
     alarmTypeList=params.getAlarmDictInstance()
     vehicleFactoryMap=params.getVehicleFactoryDictInstance()
     projectMap=params.getProjectNameInstance()

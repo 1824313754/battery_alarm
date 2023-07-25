@@ -1,9 +1,5 @@
-import base.{FlinkBatteryProcess}
+import streaming.AlarmStreaming
 
-object AlarmStart extends FlinkBatteryProcess  {
-  def main(args: Array[String]): Unit = {
-    run(args)
-  }
-
-  override def getJobName(): String = "run AlarmStart"
+object AlarmStart extends App {
+    AlarmStreaming.run(args)
 }

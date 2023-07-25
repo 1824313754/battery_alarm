@@ -5,7 +5,7 @@ import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.configuration.Configuration
 
 
-class GpsProcess extends RichMapFunction[JSONObject, JSONObject] {
+class GpsProcess extends RichMapFunction[JSONObject, String] {
   var gpsList = Array[String]()
   override def open(parameters: Configuration): Unit = {
     //读取gpsPath中的数据
@@ -13,14 +13,14 @@ class GpsProcess extends RichMapFunction[JSONObject, JSONObject] {
     gpsList = scala.io.Source.fromFile(gps).getLines().toArray
   }
 
-  override def map(value: JSONObject): JSONObject = {
+  override def map(value: JSONObject): String = {
     val cityStr = parseCity(value, gpsList)
     val cityArray: Array[String] = cityStr.split(",")
     value.put("province", cityArray(0))
     value.put("city", cityArray(1))
     value.put("area", cityArray(2))
     value.put("region", cityArray(3))
-    value
+    value.toJSONString
   }
 
 

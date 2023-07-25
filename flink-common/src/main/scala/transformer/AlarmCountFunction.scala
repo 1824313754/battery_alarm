@@ -7,6 +7,8 @@ import org.apache.flink.configuration.Configuration
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction
 import org.apache.flink.util.Collector
 
+import scala.io.Source
+
 
 class AlarmCountFunction extends KeyedProcessFunction[String, JSONObject, JSONObject] {
   //定义一个值状态，用来保存历史JSONObject值,类型为JSONObject
@@ -16,13 +18,21 @@ class AlarmCountFunction extends KeyedProcessFunction[String, JSONObject, JSONOb
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
     val properties = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    //获取反射对象
-    val base = Class.forName(properties.get("flink.base")).newInstance()
-    val fields = base.getClass.getDeclaredFields
-    fields.foreach(_.setAccessible(true))
+    //获取报警次数的分布式缓存文件
+    val alarmCountFile = getRuntimeContext.getDistributedCache.getFile("alarmCount")
+    //获取报警次数的map
+    val source = Source.fromFile(alarmCountFile)
+    val lines = source.getLines().toList
+    source.close()
+    mapCount= lines.map { line =>
+      val keyValue = line.split("=")
+      val key = keyValue(0)
+      val value = keyValue(1).toInt
+      key -> value
+    }.toMap
     //获取成员变量timeInterval和alarmLevelMap
-    timeInterval = fields.filter(_.getName == "timeInterval").head.get(base).asInstanceOf[Int]
-    mapCount = fields.filter(_.getName == "mapCount").head.get(base).asInstanceOf[Map[String, Int]]
+    timeInterval = properties.getInt("timeInterval.seconds")
+
   }
 
   override def processElement(cur_alarm: JSONObject, context: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, collector: Collector[JSONObject]): Unit =
