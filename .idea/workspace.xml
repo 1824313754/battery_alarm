@@ -4,18 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="暂存">
+    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="电池网2.0初版">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmCountFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmCountFunction.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmListFlatmap.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmCountFunction.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/DataPreprocessing.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/DataPreprocessing.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hs_err_pid40240.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +28,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Scala Object" />
+        <option value="Scala Trait" />
       </list>
     </option>
   </component>
@@ -87,9 +87,9 @@
       <recent name="F:\chuneng\battery_alarm\flink-factory" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="base" />
       <recent name="model.ruichi" />
       <recent name="utils" />
-      <recent name="base" />
       <recent name="sink" />
       <recent name="transformer" />
     </key>
@@ -109,7 +109,7 @@
       <option name="PROGRAM_PARAMETERS" value="--config_path F:\chuneng\battery_alarm\test.properties" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="geely.*" />
+          <option name="PATTERN" value="ruichi.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -118,12 +118,12 @@
       </method>
     </configuration>
     <configuration name="streaming.AlarmStreaming (1)" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
+      <option name="MAIN_CLASS_NAME" value="base.AlarmStreaming" />
       <module name="flink-common" />
       <option name="PROGRAM_PARAMETERS" value="--config_path F:\chuneng\battery_alarm\test.properties" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="streaming.*" />
+          <option name="PATTERN" value="base.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -132,12 +132,12 @@
       </method>
     </configuration>
     <configuration name="streaming.AlarmStreaming" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="streaming.AlarmStreaming" />
+      <option name="MAIN_CLASS_NAME" value="base.AlarmStreaming" />
       <module name="flink-factory" />
       <option name="PROGRAM_PARAMETERS" value="--config_path F:\battery\alarm\test.properties" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="streaming.*" />
+          <option name="PATTERN" value="base.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -150,7 +150,7 @@
       <module name="flink-common" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="streaming.*" />
+          <option name="PATTERN" value="base.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -207,7 +207,7 @@
       <workItem from="1690167425259" duration="4656000" />
       <workItem from="1690181258635" duration="7237000" />
       <workItem from="1690245853654" duration="8580000" />
-      <workItem from="1690265004389" duration="6255000" />
+      <workItem from="1690265004389" duration="24178000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <created>1689058431673</created>
@@ -272,11 +272,29 @@
       <option name="project" value="LOCAL" />
       <updated>1690179121649</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="电池网2.0初版">
+      <created>1690272412175</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1690272412175</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -291,32 +309,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="暂存" />
-    <option name="LAST_COMMIT_MESSAGE" value="暂存" />
+    <MESSAGE value="电池网2.0初版" />
+    <option name="LAST_COMMIT_MESSAGE" value="电池网2.0初版" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala</url>
-          <line>96</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala</url>
-          <line>32</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/streaming/AlarmStreaming.scala</url>
-          <line>81</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="scala-line">
-          <url>file://$PROJECT_DIR$/flink-common/src/main/scala/transformer/AlarmCountFunction.scala</url>
-          <line>33</line>
-          <option name="timeStamp" value="22" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-defaults>
         <breakpoint suspend="THREAD" type="scala-line" />
       </breakpoints-defaults>

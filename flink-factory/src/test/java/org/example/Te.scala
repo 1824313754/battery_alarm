@@ -1,6 +1,6 @@
 //package org.example
 //
-//import streaming.AlarmStreaming.properties
+//import base.AlarmStreaming.properties
 //
 //import scala.reflect.runtime.{universe => ru}
 //object Te {

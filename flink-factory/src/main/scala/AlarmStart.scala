@@ -1,5 +1,7 @@
-import streaming.AlarmStreaming
+import base.AlarmStreaming
+import com.alibaba.fastjson.JSONObject
 
-object AlarmStart extends App {
-    AlarmStreaming.run(args)
+
+object AlarmStart extends App with AlarmStreaming{
+    run(args)
 }

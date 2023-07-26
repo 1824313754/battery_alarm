@@ -41,6 +41,8 @@ trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSON
       lastValueState.update(json)
       out.collect(json)
     }
+
+  //报警核心处理函数
   def batteryRuleProcessing(last_json:JSONObject,value:JSONObject):JSONObject
 
   def getRediesKey(): String

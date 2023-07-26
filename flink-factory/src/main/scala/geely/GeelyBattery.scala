@@ -7,34 +7,8 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
-class GeelyBattery extends BatteryStateFunction{
-  //定义车厂2帧的数据时间间隔(s)
-  val timeInterval = 10
-  //设置报警对应的报警次数
-  val mapCount: Map[String, Int] = Map(
-    batteryHighTemperature.toString -> 1,
-    socJump.toString -> 1,
-    socHigh.toString -> 1,
-    monomerBatteryUnderVoltage.toString -> 1,
-    monomerBatteryOverVoltage.toString -> 1,
-    deviceTypeUnderVoltage.toString -> 1,
-    deviceTypeOverVoltage.toString -> 1,
-    batteryConsistencyPoor.toString -> 1,
-    insulation.toString -> 1,
-    socLow.toString -> 1,
-    temperatureDifferential.toString -> 1,
-    voltageJump.toString -> 1,
-    socNotBalance.toString -> 1,
-    electricBoxWithWater.toString -> 1,
-    outFactorySafetyInspection.toString -> 1,
-    abnormalTemperature.toString -> 1,
-    abnormalVoltage.toString -> 1,
-    voltageLineFall.toString -> 1,
-    tempLineFall.toString -> 1,
-    isAdjacentMonomerAbnormal.toString -> 1,
-    batteryStaticConsistencyPoor.toString -> 1,
-    isAbnormalinternalResistance.toString -> 1
-  )
+class GeelyBattery extends BatteryStateFunction {
+
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
   lazy val socData2137: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]] =socData.getOrElse("Geely-DJ2137",null)
   lazy val socData2136: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]=socData.getOrElse("Geely-DJ2136",null)
@@ -53,7 +27,6 @@ class GeelyBattery extends BatteryStateFunction{
     //TODO 三元
     if (batteryType == 2) {
       processNCMData(json, old_data, commandType)
-
     }
     //TODO 磷酸铁锂
     else if (batteryType == 1 && cellCount != 1) {
