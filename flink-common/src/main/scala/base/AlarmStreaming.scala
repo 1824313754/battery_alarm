@@ -38,8 +38,7 @@ trait AlarmStreaming extends FlinkBatteryProcess {
   override def registerConfigCachedFile(): Unit = {
     //gps配置文件
     env.registerCachedFile(properties.get("gps.path"), "gps")
-    //报警次数配置文件
-    env.registerCachedFile(properties.get("alarm.count.path"), "alarmCount")
+
 
   }
 

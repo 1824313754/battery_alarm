@@ -19,7 +19,6 @@ trait AlarmCountFunction extends KeyedProcessFunction[String, JSONObject, JSONOb
   override def processElement(cur_alarm: JSONObject, context: KeyedProcessFunction[String, JSONObject, JSONObject]#Context, collector: Collector[JSONObject]): Unit = {
     //历史值
     val last_alarm: JSONObject = lastAlarmValueState.value()
-    println("last_alarm:"+last_alarm)
     if (alarmCountFunction(cur_alarm, last_alarm)) {
       collector.collect(cur_alarm)
       lastAlarmValueState.clear()
