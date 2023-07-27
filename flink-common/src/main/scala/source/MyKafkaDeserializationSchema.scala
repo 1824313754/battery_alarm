@@ -9,7 +9,7 @@ import org.apache.flink.streaming.connectors.kafka.KafkaDeserializationSchema
  * 自定义kafka反序列化
  * 将kafka中的topic和offset添加到json中
  */
-class MyKafkaDeserializationSchema(groupId:String) extends KafkaDeserializationSchema[String]{
+class MyKafkaDeserializationSchema(groupId:String) extends KafkaDeserializationSchema[String] {
   override def isEndOfStream(t: String): Boolean = {
     false
   }

@@ -3,8 +3,9 @@ package base
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
 import org.apache.flink.api.java.utils.ParameterTool
+import org.apache.flink.contrib.streaming.state.RocksDBStateBackend
 import org.apache.flink.streaming.api.datastream.DataStream
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+import org.apache.flink.streaming.api.environment.{CheckpointConfig, StreamExecutionEnvironment}
 import org.apache.flink.streaming.connectors.kafka.FlinkKafkaConsumer
 import sink.ClickHouseSink
 import source.MyKafkaDeserializationSchema
@@ -26,10 +27,23 @@ trait AlarmStreaming extends FlinkBatteryProcess {
   override def initFlinkEnv(): StreamExecutionEnvironment = {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
     env.getConfig.enableForceKryo()
-    //设置checkpoint
-    env.enableCheckpointing(1000)
-    //设置重启策略，3次重启，每次间隔5秒
-    env.setRestartStrategy(RestartStrategies.fixedDelayRestart(3, 5000))
+    //获取当前环境
+    properties.get("flink.env") match {
+      case "test" => env.setParallelism(1)
+      case _ =>
+        //设置checkpoint
+        env.enableCheckpointing(properties.get("checkpoint.interval").toInt)
+        //设置重启策略，3次重启，每次间隔5秒
+        env.setRestartStrategy(RestartStrategies.fixedDelayRestart(properties.getInt("restart.num"), properties.getLong("restart.interval")))
+        //设置最大checkpoint并行度
+        env.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
+        //设置checkpoint超时时间
+        env.getCheckpointConfig.setCheckpointTimeout(properties.getLong("checkpoint.timeout"))
+        //设置RocksDBStateBackend,增量快照
+        env.setStateBackend(new RocksDBStateBackend(properties.get("checkpoint.path"), true))
+        //设置任务取消时保留checkpoint
+        env.getCheckpointConfig.enableExternalizedCheckpoints(CheckpointConfig.ExternalizedCheckpointCleanup.RETAIN_ON_CANCELLATION)
+    }
     //注册为全局变量
     env.getConfig.setGlobalJobParameters(properties)
     env
@@ -52,31 +66,32 @@ trait AlarmStreaming extends FlinkBatteryProcess {
       new MyKafkaDeserializationSchema(groupId),
       createConsumerProperties(properties)
     )
-    val dataStream: DataStream[String] = env.addSource(kafkaConsumer)
+    val dataStream: DataStream[String] = env.addSource(kafkaConsumer).uid("kafkaSource")
     dataStream
   }
 
   override def process(): DataStream[String] = {
     //TODO 将json数据预处理关联gpsInfo
-    val value: DataStream[JSONObject] = dataStream.map(new DataPreprocessing)
+    val value: DataStream[JSONObject] = dataStream.map(new DataPreprocessing).uid("dataPreprocessing")
     val alarmJson: DataStream[JSONObject] = value.keyBy((value: JSONObject) => {
       //根据vin,alarmType,commandType进行分组
       value.getString("vin") + JSON.parseObject(value.getString("customField")).get("commandType")
-    }).process(batteryProcessFunction)
+    }).process(batteryProcessFunction).uid("batteryProcessFunction")
 
     //其中一条报警数据可能包含多个报警类型，所以需要将报警数据拆分成多条
-    val alarmData: DataStream[JSONObject] = alarmJson.flatMap(new AlarmListFlatmap())
+    val alarmData: DataStream[JSONObject] = alarmJson.flatMap(new AlarmListFlatmap()).uid("alarmListFlatmap")
     //对报警数据进行计数统计
     val reslust: DataStream[String] = alarmData.keyBy((value: JSONObject) => {
       //根据vin,alarmType,commandType进行分组
       value.getString("vin") + value.getString("alarm_type")
-    }).process(alarmCountClass).map(new GpsProcess)
+    }).process(alarmCountClass).uid("alarmCountClass")
+      .map(new GpsProcess).uid("gpsProcess")
     reslust
   }
 
   override def writeClickHouse(): Unit = {
     //写入clickhouse
-    resultStream.addSink(new ClickHouseSink(properties))
+    resultStream.addSink(new ClickHouseSink(properties)).uid("clickHouseSink")
   }
 
 
