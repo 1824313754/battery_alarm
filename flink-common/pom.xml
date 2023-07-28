@@ -64,6 +64,7 @@
         </dependency>
     </dependencies>
     <build>
+        <sourceDirectory>src/main/scala</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
@@ -88,32 +89,72 @@
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
+
+
                 </executions>
             </plugin>
 
-            <!-- Add the Maven Assembly Plugin -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <!-- Additional configuration for the assembly plugin if needed -->
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
+
     </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>net.alchim31.maven</groupId>-->
+<!--                <artifactId>scala-maven-plugin</artifactId>-->
+<!--                <version>3.2.2</version>-->
+<!--                <configuration>-->
+<!--                    <recompileMode>incremental</recompileMode>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>scala-compile-first</id>-->
+<!--                        <phase>process-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>add-source</goal>-->
+<!--                            <goal>compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                    <execution>-->
+<!--                        <id>scala-test-compile</id>-->
+<!--                        <phase>process-test-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>testCompile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
+<!--            &lt;!&ndash; Maven Shade Plugin configuration &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-shade-plugin</artifactId>-->
+<!--                <version>3.3.0</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>shade</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <createDependencyReducedPom>false</createDependencyReducedPom>-->
+<!--                            <artifactSet>-->
+<!--                                &lt;!&ndash; Exclude your own code package &ndash;&gt;-->
+<!--                                <excludes>-->
+<!--                                    <exclude>${project.groupId}:${project.artifactId}</exclude>-->
+<!--                                </excludes>-->
+<!--                            </artifactSet>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+
+
+
+
 
 
 </project>

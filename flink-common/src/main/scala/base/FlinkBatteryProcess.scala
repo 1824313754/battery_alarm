@@ -1,9 +1,10 @@
 package base
 
-import com.alibaba.fastjson.JSONObject
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
+
+import scala.beans.BeanProperty
 
 
 /**
@@ -21,9 +22,9 @@ trait FlinkBatteryProcess extends Serializable {
   //结果数据流
   protected var resultStream: DataStream[String] = _
   //处理数据的核心类
-  protected var batteryProcessFunction : BatteryStateFunction=_
+  @BeanProperty protected var batteryProcessFunction : BatteryStateFunction=_
   //获取报警次数的类文件
-  protected var alarmCountClass:AlarmCountFunction=_
+  @BeanProperty protected var alarmCountClass:AlarmCountFunction=_
 
 
   //获取配置文件
@@ -51,10 +52,6 @@ trait FlinkBatteryProcess extends Serializable {
     this.env=initFlinkEnv()
     //注册一些连接信息为分布式缓存
     registerConfigCachedFile()
-    //处理数据的核心类,反射加载
-    this.batteryProcessFunction = Class.forName(properties.get("flink.base")).newInstance().asInstanceOf[BatteryStateFunction]
-    //获取报警次数的类文件
-    this.alarmCountClass = Class.forName(properties.get("alarm.count")).newInstance().asInstanceOf[AlarmCountFunction]
     //读取kafka数据
     this.dataStream=readKafka()
     this.resultStream=process()

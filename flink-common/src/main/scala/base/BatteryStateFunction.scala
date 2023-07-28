@@ -14,16 +14,17 @@ import scala.collection.mutable.ArrayBuffer
 
 trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject] {
   //检测是否为本地环境，若为本地环境则不进行redis操作
-  var flinkEnv:String = _
+  var flinkEnv:String = ""
   lazy val lastValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastValueStateLFP", classOf[JSONObject]))
   //定义一个值，用来保存TreeMap[Int,ArrayBuffer[(Int,Float)]]
   var socData: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   //redis实例
   var redis: RedisUtil = _
+
   override def open(parameters: Configuration): Unit = {
     //获取全局变量
-    val properties= getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
-    flinkEnv = properties.get("flink.env")
+    val properties: ParameterTool = getRuntimeContext.getExecutionConfig.getGlobalJobParameters.asInstanceOf[ParameterTool]
+    this.flinkEnv = properties.get("flink.env")
     val params = DictConfig.getInstance(properties)
     socData=params.creatInstanceNCM()
     redis=RedisUtil.getInstance(properties)

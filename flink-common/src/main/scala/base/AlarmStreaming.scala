@@ -15,8 +15,7 @@ import utils.GetConfig.createConsumerProperties
 
 import scala.collection.JavaConverters.bufferAsJavaListConverter
 
-trait AlarmStreaming extends FlinkBatteryProcess {
-
+class AlarmStreaming extends FlinkBatteryProcess {
   override def getConfig(args: Array[String]): ParameterTool = {
     val tool: ParameterTool = ParameterTool.fromArgs(args)
     val fileName: String = tool.get("config_path")
@@ -26,7 +25,7 @@ trait AlarmStreaming extends FlinkBatteryProcess {
 
   override def initFlinkEnv(): StreamExecutionEnvironment = {
     val env: StreamExecutionEnvironment = StreamExecutionEnvironment.getExecutionEnvironment
-    env.getConfig.enableForceKryo()
+//    env.getConfig.enableForceKryo()
     //获取当前环境
     properties.get("flink.env") match {
       case "test" => env.setParallelism(1)
@@ -92,6 +91,7 @@ trait AlarmStreaming extends FlinkBatteryProcess {
   override def writeClickHouse(): Unit = {
     //写入clickhouse
     resultStream.addSink(new ClickHouseSink(properties)).uid("clickHouseSink")
+//    resultStream.print()
   }
 
 
