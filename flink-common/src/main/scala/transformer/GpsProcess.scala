@@ -1,6 +1,6 @@
 package transformer
 
-import com.alibaba.fastjson.{JSON, JSONObject}
+import com.alibaba.fastjson.{JSONObject}
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.configuration.Configuration
 

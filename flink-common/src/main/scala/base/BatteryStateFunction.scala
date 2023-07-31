@@ -10,11 +10,10 @@ import org.apache.flink.util.Collector
 import utils.RedisUtil
 
 import scala.collection.immutable.TreeMap
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSONObject] {
-  //检测是否为本地环境，若为本地环境则不进行redis操作
+  //检测是否为本地环境，若为本地环境则不进行redis写入操作
   var flinkEnv:String = ""
   lazy val lastValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastValueStateLFP", classOf[JSONObject]))
   //定义一个值，用来保存TreeMap[Int,ArrayBuffer[(Int,Float)]]

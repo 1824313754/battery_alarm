@@ -4,6 +4,11 @@ import `enum`.AlarmEnum
 import base.AlarmCountFunction
 import com.alibaba.fastjson.JSONObject
 
+/**
+ * 瑞驰报警计数
+ * 返回true，说明需要报警
+ * 返回false，说明不需要报警
+ */
 class RuichiCount extends AlarmCountFunction{
   override def alarmCountFunction(cur_alarm: JSONObject, last_alarm: JSONObject): Boolean = {
 

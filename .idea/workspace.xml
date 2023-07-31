@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="电池网2.0初版，scala 2.11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmCountFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmCountFunction.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/sink/ClickHouseSink.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiCount.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiCount.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690773521139</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="电池网2.0初版，scala 2.11">
+      <created>1690774231801</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1690774231801</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

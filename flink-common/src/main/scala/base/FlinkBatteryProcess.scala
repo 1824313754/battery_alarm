@@ -23,7 +23,7 @@ trait FlinkBatteryProcess extends Serializable {
   protected var resultStream: DataStream[String] = _
   //处理数据的核心类
   @BeanProperty protected var batteryProcessFunction : BatteryStateFunction=_
-  //获取报警次数的类文件
+  //获取报警次数的类
   @BeanProperty protected var alarmCountClass:AlarmCountFunction=_
 
 
