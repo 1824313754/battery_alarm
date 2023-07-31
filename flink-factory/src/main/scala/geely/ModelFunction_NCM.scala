@@ -5,7 +5,8 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import utils.CommonFuncs.{stringToDoubleArray, stringToIntArray}
 import utils.MathFuncs.calcSoc
 
-import scala.collection.mutable
+
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 object ModelFunction_NCM extends Serializable {
@@ -157,7 +158,7 @@ object ModelFunction_NCM extends Serializable {
    * @param old_json
    * @param json
    */
-  def isStaticDifferential(old_json: JSONObject, json: JSONObject,socData:mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]): Unit = {
+  def isStaticDifferential(old_json: JSONObject, json: JSONObject,socData:TreeMap[Int, ArrayBuffer[(Int, Float)]]): Unit = {
     var minCellVoltage: Integer = json.getInteger("batteryMinVoltage")
     var maxCellVoltage: Integer = json.getInteger("batteryMaxVoltage")
     var mileage: Integer = json.getInteger("mileage")
@@ -340,7 +341,7 @@ object ModelFunction_NCM extends Serializable {
    * @param old_json
    * @param json
    */
-  def isSocVirtualHigh(old_json: JSONObject, json: JSONObject,socData:mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
+  def isSocVirtualHigh(old_json: JSONObject, json: JSONObject,socData:TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
 
     val timeStamp: Long = json.getLong("timeStamp")
     val old_timeStamp: Long = old_json.getLong("timeStamp")

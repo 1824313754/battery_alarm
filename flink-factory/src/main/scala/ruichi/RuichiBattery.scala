@@ -1,18 +1,17 @@
 package ruichi
 
 
-import `enum`.AlarmEnum
-import `enum`.AlarmEnum._
+
 import base.{AlarmCountFunction, BatteryStateFunction}
 import com.alibaba.fastjson.{JSON, JSONObject}
 
-import scala.collection.mutable
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 class RuichiBattery extends BatteryStateFunction {
 
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
-  lazy val socDataRC: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]] = socData.getOrElse("RuiChi-63AH", null)
+  lazy val socDataRC:TreeMap[Int, ArrayBuffer[(Int, Float)]] = socData.getOrElse("RuiChi-63AH", null)
 
   override def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject = {
     val customField = new_data.getString("customField")

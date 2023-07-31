@@ -4,15 +4,15 @@ import `enum`.AlarmEnum._
 import base.BatteryStateFunction
 import com.alibaba.fastjson.{JSON, JSONObject}
 
-import scala.collection.mutable
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 class GeelyBattery extends BatteryStateFunction {
 
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
-  lazy val socData2137: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]] =socData.getOrElse("Geely-DJ2137",null)
-  lazy val socData2136: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]=socData.getOrElse("Geely-DJ2136",null)
-  lazy val socData52Ah: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]=socData.getOrElse("Geely-NCM-52Ah",null)
+  lazy val socData2137: TreeMap[Int, ArrayBuffer[(Int, Float)]] =socData.getOrElse("Geely-DJ2137",null)
+  lazy val socData2136: TreeMap[Int, ArrayBuffer[(Int, Float)]]=socData.getOrElse("Geely-DJ2136",null)
+  lazy val socData52Ah: TreeMap[Int, ArrayBuffer[(Int, Float)]]=socData.getOrElse("Geely-NCM-52Ah",null)
 
 
   override def batteryRuleProcessing(old_data: JSONObject, json: JSONObject): JSONObject = {

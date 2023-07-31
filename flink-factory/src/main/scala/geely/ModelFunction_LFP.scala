@@ -7,7 +7,7 @@ import coom.VoltageFuncs.processVoltageLayer
 import utils.CommonFuncs.{stringToDoubleArray, stringToIntArray}
 import utils.MathFuncs.calcSoc
 
-import scala.collection.mutable
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 object ModelFunction_LFP extends Serializable {
@@ -506,7 +506,7 @@ object ModelFunction_LFP extends Serializable {
    * @param old_json
    * @param json
    */
-  def isSocVirtualHigh_DJ2136(old_json: JSONObject, json: JSONObject,socData:mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
+  def isSocVirtualHigh_DJ2136(old_json: JSONObject, json: JSONObject,socData:TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
 
     val timeStamp: Long = json.getLong("timeStamp")
     val old_timeStamp: Long = old_json.getLong("timeStamp")
@@ -556,7 +556,7 @@ object ModelFunction_LFP extends Serializable {
    * @param old_json
    * @param json
    */
-  def isSocVirtualHigh_DJ2137(old_json: JSONObject, json: JSONObject,socData:mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
+  def isSocVirtualHigh_DJ2137(old_json: JSONObject, json: JSONObject,socData:TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
 
     val timeStamp: Long = json.getLong("timeStamp")
     val old_timeStamp: Long = old_json.getLong("timeStamp")

@@ -1,6 +1,6 @@
 package utils
 
-import scala.collection.mutable
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 object MathFuncs extends Serializable{
@@ -101,9 +101,9 @@ object MathFuncs extends Serializable{
    * @param temperature
    * @return
    */
-  def calcSoc(map: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]], cellVoltage: Int, temperature: Int): Int = {
+  def calcSoc(socmap: TreeMap[Int, ArrayBuffer[(Int, Float)]], cellVoltage: Int, temperature: Int): Int = {
     //通过计算插值获取数组中元素
-//    var map: TreeMap[Int, ArrayBuffer[(Int, Float)]] = null
+    var map: TreeMap[Int, ArrayBuffer[(Int, Float)]] = socmap
     var soc: Int = 0
 //    if (index == 0) {
 //      map = OcvData.creatInstanceNCM()

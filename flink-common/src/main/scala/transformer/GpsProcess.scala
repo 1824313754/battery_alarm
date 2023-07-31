@@ -4,14 +4,17 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.functions.RichMapFunction
 import org.apache.flink.configuration.Configuration
 
+import java.nio.charset.StandardCharsets
+
 
 class GpsProcess extends RichMapFunction[JSONObject, String] {
   var gpsList = Array[String]()
   override def open(parameters: Configuration): Unit = {
     //读取gpsPath中的数据
     val gps = getRuntimeContext.getDistributedCache.getFile("gps")
-    gpsList = scala.io.Source.fromFile(gps).getLines().toArray
+    gpsList = scala.io.Source.fromFile(gps, StandardCharsets.UTF_8.toString).getLines().toArray
   }
+
 
   override def map(value: JSONObject): String = {
     val cityStr = parseCity(value, gpsList)

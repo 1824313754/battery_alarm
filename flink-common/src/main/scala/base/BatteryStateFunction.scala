@@ -9,6 +9,7 @@ import org.apache.flink.streaming.api.functions.KeyedProcessFunction
 import org.apache.flink.util.Collector
 import utils.RedisUtil
 
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
@@ -17,7 +18,7 @@ trait BatteryStateFunction extends KeyedProcessFunction[String, JSONObject, JSON
   var flinkEnv:String = ""
   lazy val lastValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastValueStateLFP", classOf[JSONObject]))
   //定义一个值，用来保存TreeMap[Int,ArrayBuffer[(Int,Float)]]
-  var socData: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
+  var socData: Map[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   //redis实例
   var redis: RedisUtil = _
 

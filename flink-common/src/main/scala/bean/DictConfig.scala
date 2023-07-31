@@ -5,7 +5,8 @@ package bean
 import org.apache.flink.api.java.utils.ParameterTool
 import utils.ConnectionPool
 
-import scala.collection.mutable
+
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 object DictConfig {
@@ -24,7 +25,7 @@ object DictConfig {
 }
 
 class DictConfig private(properties: ParameterTool) extends Serializable{
-  @volatile private var ocvTable: Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
+  @volatile private var ocvTable: Map[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]] = _
   @volatile private var alarmDict: Map[String, String] = _
   @volatile private var vehicleFactoryDict: Map[Int, String] = _
   @volatile private var projectName: Map[String,(Int,String,String)] = _
@@ -60,36 +61,37 @@ class DictConfig private(properties: ParameterTool) extends Serializable{
     }
     projectName
   }
-  private def getOcvNCMData(): Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
+
+
+  private def getOcvNCMData(): Map[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
     val conn = ConnectionPool.getConnection(properties)
-    val sql: String = "SELECT BatteryAh,BatteryTemp,BatteryCellVol,BatterySoc from battery.GX_Ocv order by id"
+    val sql: String = "SELECT BatteryAh, BatteryTemp, BatteryCellVol, BatterySoc FROM battery.GX_Ocv ORDER BY id"
     val prepareStatement = conn.prepareStatement(sql)
     val result = prepareStatement.executeQuery()
-    val map = mutable.Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]]()
-    while (result.next()) {
-      val batteryAh = result.getString("BatteryAh")
-      val batteryTemp = result.getInt("BatteryTemp")
-      val batteryCellVol = result.getInt("BatteryCellVol")
-      val batterySoc = result.getFloat("BatterySoc")
 
-      if (map.contains(batteryAh)) {
-        val innerMap = map(batteryAh)
-        if (innerMap.contains(batteryTemp)) {
-          innerMap(batteryTemp).append((batteryCellVol, batterySoc))
-        } else {
-          innerMap += (batteryTemp -> ArrayBuffer((batteryCellVol, batterySoc)))
-        }
-      } else {
-        val innerMap = mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]()
-        innerMap += (batteryTemp -> ArrayBuffer((batteryCellVol, batterySoc)))
-        map += (batteryAh -> innerMap)
+    val map = Iterator.continually(result).takeWhile(_.next()).foldLeft(Map.empty[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]]) { (accMap, rs) =>
+      val batteryAh = rs.getString("BatteryAh")
+      val batteryTemp = rs.getInt("BatteryTemp")
+      val batteryCellVol = rs.getInt("BatteryCellVol")
+      val batterySoc = rs.getFloat("BatterySoc")
+
+      val innerMap = accMap.getOrElse(batteryAh, TreeMap.empty[Int, ArrayBuffer[(Int, Float)]])
+
+      val updatedInnerMap = innerMap.get(batteryTemp) match {
+        case Some(values) => innerMap.updated(batteryTemp, values :+ (batteryCellVol, batterySoc))
+        case None => innerMap.updated(batteryTemp, ArrayBuffer((batteryCellVol, batterySoc)))
       }
+
+      accMap.updated(batteryAh, updatedInnerMap)
     }
 
     prepareStatement.close()
     ConnectionPool.closeConnection(conn)
-    map.toMap
+    map
   }
+
+
+
 
 
   private def getAlarmDict(): Map[String, String] = {
@@ -124,7 +126,7 @@ class DictConfig private(properties: ParameterTool) extends Serializable{
     map
   }
 
-  def creatInstanceNCM(): Map[String, mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
+  def creatInstanceNCM(): Map[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
     if (ocvTable == null ) {
       synchronized {
         if (ocvTable == null) {

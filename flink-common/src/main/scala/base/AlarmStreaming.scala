@@ -2,6 +2,7 @@ package base
 
 import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
+import org.apache.flink.api.java.functions.KeySelector
 import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.contrib.streaming.state.RocksDBStateBackend
 import org.apache.flink.streaming.api.datastream.DataStream
@@ -72,17 +73,17 @@ class AlarmStreaming extends FlinkBatteryProcess {
   override def process(): DataStream[String] = {
     //TODO 将json数据预处理关联gpsInfo
     val value: DataStream[JSONObject] = dataStream.map(new DataPreprocessing).uid("dataPreprocessing")
-    val alarmJson: DataStream[JSONObject] = value.keyBy((value: JSONObject) => {
+    val alarmJson: DataStream[JSONObject] = value.keyBy(new KeySelector[JSONObject,String] {
       //根据vin,alarmType,commandType进行分组
-      value.getString("vin") + JSON.parseObject(value.getString("customField")).get("commandType")
+      override def getKey(in: JSONObject): String = in.getString("vin") + JSON.parseObject(in.getString("customField")).get("commandType")
     }).process(batteryProcessFunction).uid("batteryProcessFunction")
 
     //其中一条报警数据可能包含多个报警类型，所以需要将报警数据拆分成多条
     val alarmData: DataStream[JSONObject] = alarmJson.flatMap(new AlarmListFlatmap()).uid("alarmListFlatmap")
     //对报警数据进行计数统计
-    val reslust: DataStream[String] = alarmData.keyBy((value: JSONObject) => {
-      //根据vin,alarmType,commandType进行分组
-      value.getString("vin") + value.getString("alarm_type")
+    val reslust: DataStream[String] = alarmData.keyBy(new KeySelector[JSONObject,String] {
+//根据vin,alarmType,commandType进行分组
+      override def getKey(in: JSONObject): String = in.getString("vin") + in.getString("alarm_type")
     }).process(alarmCountClass).uid("alarmCountClass")
       .map(new GpsProcess).uid("gpsProcess")
     reslust

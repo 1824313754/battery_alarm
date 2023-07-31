@@ -5,7 +5,7 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import coom.AdvancedFuncs.notSocLayerLFP
 import utils.MathFuncs.calcSoc
 
-import scala.collection.mutable
+import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
 object RC extends Serializable {
@@ -326,7 +326,7 @@ object RC extends Serializable {
    * @param old_json
    * @param json
    */
-  def isSocVirtualHigh(old_json: JSONObject, json: JSONObject, socDataRC: mutable.TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
+  def isSocVirtualHigh(old_json: JSONObject, json: JSONObject, socDataRC: TreeMap[Int, ArrayBuffer[(Int, Float)]]) {
 
     val timeStamp: Long = json.getLong("timeStamp")
     val old_timeStamp: Long = old_json.getLong("timeStamp")
