@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="电池网2.0初版">
+    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="电池网2.0初版，scala 2.11">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/BatteryStateFunction.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/transformer/GpsProcess.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/utils/MathFuncs.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/utils/MathFuncs.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_LFP.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_LFP.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_NCM.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/ModelFunction_NCM.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RC.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RC.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/ruichi/RuichiBattery.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -296,7 +285,14 @@
       <option name="project" value="LOCAL" />
       <updated>1690443511582</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="电池网2.0初版，scala 2.11">
+      <created>1690773521139</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1690773521139</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -327,7 +323,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="暂存" />
     <MESSAGE value="电池网2.0初版" />
-    <option name="LAST_COMMIT_MESSAGE" value="电池网2.0初版" />
+    <MESSAGE value="电池网2.0初版，scala 2.11" />
+    <option name="LAST_COMMIT_MESSAGE" value="电池网2.0初版，scala 2.11" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

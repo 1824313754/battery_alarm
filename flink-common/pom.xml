@@ -103,8 +103,11 @@
 
 <!--    </build>-->
     <build>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+
         <plugins>
             <plugin>
+                <!-- Scala Maven Plugin configuration -->
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
                 <version>3.2.2</version>
@@ -143,6 +146,9 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <finalName>flink-common-1.13</finalName> <!-- Output JAR name for your code package -->
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>comm</shadedClassifierName> <!-- Classifier name for your dependency package -->
                             <artifactSet>
                                 <!-- Exclude your own code package -->
                                 <excludes>
@@ -155,6 +161,8 @@
             </plugin>
         </plugins>
     </build>
+
+
 
 
 
