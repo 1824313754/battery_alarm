@@ -23,7 +23,7 @@ class RuichiCount extends AlarmCountFunction{
       }
     } else {
       //判断采集间隔最大为3个采集点
-      if (cur_alarm.getLongValue("start_time") - last_alarm.getLong("start_time") <= 100 && cur_alarm.getLong("start_time") - last_alarm.getLong("start_time") > 0) {
+      if (cur_alarm.getLongValue("start_time") - last_alarm.getLong("start_time") <= 15 && cur_alarm.getLong("start_time") - last_alarm.getLong("start_time") > 0) {
         cur_alarm.put("alarm_count",last_alarm.getIntValue("alarm_count") + 1)
         cur_alarm.put("start_time", last_alarm.getLongValue("start_time"))
         if (cur_alarm.getString("alarm_type") == "abnormalVoltage"
@@ -31,7 +31,7 @@ class RuichiCount extends AlarmCountFunction{
           || cur_alarm.getString("alarm_type") == "voltageLineFall"
           || cur_alarm.getString("alarm_type") == "tempLineFall"
           || cur_alarm.getString("alarm_type") == "slaveDisconnect") {
-          if (cur_alarm.getIntValue("alarm_count") >= 8 && cur_alarm.getLong("start_time") - last_alarm.getLong("start_time") > 1) {
+          if (cur_alarm.getIntValue("alarm_count") >= 8 && cur_alarm.getLong("start_time") - last_alarm.getLong("start_time") > 10) {
             true
           } else {
             false
