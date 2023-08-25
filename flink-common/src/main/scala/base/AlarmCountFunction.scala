@@ -5,7 +5,9 @@ import org.apache.flink.api.common.state.{ValueState, ValueStateDescriptor}
 import org.apache.flink.streaming.api.functions.KeyedProcessFunction
 import org.apache.flink.util.Collector
 
-
+/**
+ * 报警计数函数
+ */
 trait AlarmCountFunction extends KeyedProcessFunction[String, JSONObject, JSONObject] {
   //定义一个值状态，用来保存历史JSONObject值,类型为JSONObject
   lazy val lastAlarmValueState: ValueState[JSONObject] = getRuntimeContext.getState(new ValueStateDescriptor[JSONObject]("lastAlarmValueState", classOf[JSONObject]))
@@ -21,6 +23,6 @@ trait AlarmCountFunction extends KeyedProcessFunction[String, JSONObject, JSONOb
     }
   }
 
-  //报警计数函数
+  //报警计数函数，返回true则报警，返回false则不报警
   def alarmCountFunction(cur_alarm: JSONObject, last_alarm: JSONObject):Boolean
 }

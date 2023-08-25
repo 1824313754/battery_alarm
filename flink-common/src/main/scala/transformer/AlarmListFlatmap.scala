@@ -12,6 +12,7 @@ import utils.CommonFuncs.stringToIntArray
 
 import java.util.UUID
 
+
 class AlarmListFlatmap extends RichFlatMapFunction[JSONObject, JSONObject] {
   //定义一个报警等级的map
   val alarmLevelMap=Map(

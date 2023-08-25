@@ -1,14 +1,13 @@
 package bean
 
-
-
 import org.apache.flink.api.java.utils.ParameterTool
 import utils.ConnectionPool
-
-
 import scala.collection.immutable.TreeMap
 import scala.collection.mutable.ArrayBuffer
 
+/**
+ * 读取数据库的一些字典表
+ */
 object DictConfig {
  @volatile private var instance: DictConfig = _
 

@@ -33,11 +33,16 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[String]
       val statement = connection.createStatement()
       val query: String = sqlProducer(tableName, alarm)
       statement.executeUpdate(query)
+      if (statement != null){
+      statement.close()
+      }
     }
   }
 
   override def close(): Unit = {
+    if (connection != null){
     connection.close()
+    }
   }
 
   private def connect(): Unit = {
@@ -57,14 +62,13 @@ class ClickHouseSink(properties: ParameterTool) extends RichSinkFunction[String]
     var success = false
     while (!success && retries < maxRetries) {
       try {
-        block //执行代码块
+        block // 执行代码块
         success = true
       } catch {
         case e: Exception =>
           retries += 1
           if (retries < maxRetries) {
             println(s"Operation failed, retrying ($retries/$maxRetries). ${e.getMessage}")
-            connect() //重连
           } else {
             println(s"Max retries exceeded. Failed to perform the operation.")
             e.printStackTrace()

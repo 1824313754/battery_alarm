@@ -1,7 +1,5 @@
 package ruichi
 
-
-
 import base.{AlarmCountFunction, BatteryStateFunction}
 import com.alibaba.fastjson.{JSON, JSONObject}
 
@@ -12,7 +10,6 @@ class RuichiBattery extends BatteryStateFunction {
 
   //这里必须加上lazy，否则会报错，因为socData还没有初始化,batteryRuleProcessing方法中会用到
   lazy val socDataRC:TreeMap[Int, ArrayBuffer[(Int, Float)]] = socData.getOrElse("RuiChi-63AH", null)
-
   override def batteryRuleProcessing(old_data: JSONObject, new_data: JSONObject): JSONObject = {
     val customField = new_data.getString("customField")
     val customFieldJson: JSONObject = JSON.parseObject(customField)
@@ -41,8 +38,5 @@ class RuichiBattery extends BatteryStateFunction {
     }
     new_data
   }
-
-  override def getRediesKey(): String = "RuiChi_004:"
-
 
 }

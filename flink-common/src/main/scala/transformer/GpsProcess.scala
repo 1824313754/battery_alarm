@@ -6,7 +6,9 @@ import org.apache.flink.configuration.Configuration
 
 import java.nio.charset.StandardCharsets
 
-
+/**
+ * gps处理
+ */
 class GpsProcess extends RichMapFunction[JSONObject, String] {
   var gpsList = Array[String]()
   override def open(parameters: Configuration): Unit = {

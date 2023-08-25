@@ -6,7 +6,6 @@ import java.sql.{Connection, DriverManager}
 import java.util.Properties
 
 object GetConfig extends Serializable {
-//  val gps_schema = StructType(List(StructField("province",StringType),StructField("city",StringType),StructField("area",StringType),StructField("lat",DoubleType),StructField("lon",DoubleType),StructField("region",StringType)))
 
   def getProperties(filename :String)={
     val parameterTool: ParameterTool = ParameterTool.fromPropertiesFile(filename)

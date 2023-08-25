@@ -16,7 +16,7 @@ trait FlinkBatteryProcess extends Serializable {
   //flink环境
   protected var env: StreamExecutionEnvironment = _
   //配置文件
-  protected var properties: ParameterTool = _
+  @BeanProperty protected var properties: ParameterTool = _
   //数据流
   protected var dataStream: DataStream[String] = _
   //结果数据流
@@ -33,7 +33,7 @@ trait FlinkBatteryProcess extends Serializable {
   //初始化flink环境
   def initFlinkEnv(): StreamExecutionEnvironment
 
-  //注册一些连接信息为分布式缓存
+  //注册一些文件信息为分布式缓存
   def registerConfigCachedFile()
 
   //读取kafka数据
@@ -47,13 +47,13 @@ trait FlinkBatteryProcess extends Serializable {
 
 
 
-  def run(args: Array[String]): Unit = {
-    this.properties=getConfig(args)
+  def run(): Unit = {
     this.env=initFlinkEnv()
-    //注册一些连接信息为分布式缓存
+    //注册一些文件信息为分布式缓存
     registerConfigCachedFile()
     //读取kafka数据
     this.dataStream=readKafka()
+    //处理数据
     this.resultStream=process()
     //写入clickhouse
     writeClickHouse()

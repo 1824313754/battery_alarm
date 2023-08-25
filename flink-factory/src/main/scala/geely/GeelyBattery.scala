@@ -1,6 +1,5 @@
 package geely
 
-import `enum`.AlarmEnum._
 import base.BatteryStateFunction
 import com.alibaba.fastjson.{JSON, JSONObject}
 
@@ -101,5 +100,4 @@ class GeelyBattery extends BatteryStateFunction {
     }
   }
 
-  override  def getRediesKey(): String = "Geely-005"
 }

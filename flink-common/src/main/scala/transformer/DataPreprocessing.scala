@@ -5,6 +5,9 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.functions.RichMapFunction
 import utils.CommonFuncs.mkctime
 
+/**
+ * 数据预处理
+ */
 class DataPreprocessing extends RichMapFunction[String,JSONObject]{
   override def map(str: String): JSONObject = {
     val json = JSON.parseObject(str)

@@ -2,6 +2,9 @@ package bean
 
 import scala.beans.BeanProperty
 
+/**
+ * 报警表对象
+ */
 class ClickhouseAlarmTable() extends  Serializable {
   @BeanProperty var uuid: String = _
   @BeanProperty var vin: String = _
