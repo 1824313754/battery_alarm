@@ -15,6 +15,9 @@ import transformer.{AlarmListFlatmap, DataPreprocessing, GpsProcess}
 import utils.GetConfig
 import utils.GetConfig.createConsumerProperties
 
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import scala.collection.JavaConverters.bufferAsJavaListConverter
 
 class AlarmStreaming extends FlinkBatteryProcess {
@@ -71,6 +74,18 @@ class AlarmStreaming extends FlinkBatteryProcess {
       new MyKafkaDeserializationSchema(groupId),
       createConsumerProperties(properties)
     )
+    //获取时间
+    val stratTime = properties.get("kafka.consumer.stratTime")
+    //可以指定时间消费
+    if(stratTime!=null) {
+      // 定义日期时间格式
+      val dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+      // 解析日期时间字符串为 Date 对象
+      val date = dateFormat.parse(stratTime)
+      // 转换为时间戳
+      val timestamp = date.getTime()
+      kafkaConsumer.setStartFromTimestamp(timestamp)
+    }
     val dataStream: DataStream[String] = env.addSource(kafkaConsumer).uid("kafkaSource").name("kafkaSource")
     dataStream
   }
