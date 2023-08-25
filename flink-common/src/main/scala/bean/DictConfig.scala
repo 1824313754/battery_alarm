@@ -64,7 +64,10 @@ class DictConfig private(properties: ParameterTool) extends Serializable{
 
   private def getOcvNCMData(): Map[String, TreeMap[Int, ArrayBuffer[(Int, Float)]]] = {
     val conn = ConnectionPool.getConnection(properties)
-    val sql: String = "SELECT BatteryAh, BatteryTemp, BatteryCellVol, BatterySoc FROM battery.GX_Ocv ORDER BY id"
+    // 获取ocv的BatteryAh列表
+    val batteryAh = properties.get("ocv.batteryAh").split(",")
+    val quotedBatteryAh = batteryAh.map("'" + _ + "'").mkString(", ")
+    val sql: String = s"SELECT BatteryAh, BatteryTemp, BatteryCellVol, BatterySoc FROM battery.GX_Ocv where BatteryAh in ($quotedBatteryAh) ORDER BY id"
     val prepareStatement = conn.prepareStatement(sql)
     val result = prepareStatement.executeQuery()
 
