@@ -25,7 +25,8 @@ trait FlinkBatteryProcess extends Serializable {
   @BeanProperty protected var batteryProcessFunction : BatteryStateFunction=_
   //获取报警次数的类
   @BeanProperty protected var alarmCountClass:AlarmCountFunction=_
-
+  //任务名称
+  @BeanProperty protected var jobName:String=_
 
   //获取配置文件
   def getConfig(args: Array[String]): ParameterTool
@@ -49,6 +50,7 @@ trait FlinkBatteryProcess extends Serializable {
 
   def run(): Unit = {
     this.env=initFlinkEnv()
+    println("flink-battery-"+jobName+"  正在运行")
     //注册一些文件信息为分布式缓存
     registerConfigCachedFile()
     //读取kafka数据
@@ -57,7 +59,9 @@ trait FlinkBatteryProcess extends Serializable {
     this.resultStream=process()
     //写入clickhouse
     writeClickHouse()
-    env.execute("flink-battery-alarm")
+    //拼接flink-battery-jobName
+    env.execute("flink-battery-"+jobName)
+
   }
 
 }

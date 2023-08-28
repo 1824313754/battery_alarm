@@ -12,6 +12,8 @@ object AlarmStart extends AlarmStreaming{
         val alarmCount = Class.forName(alarmCountName).newInstance().asInstanceOf[AlarmCountFunction]
         //设置配置文件
         streaming.setProperties(streaming.getConfig(args))
+        //设置任务名称
+        streaming.setJobName(alarmProcessName.split("\\.")(0))
         //核心处理类的实现
         streaming.setBatteryProcessFunction(alarmProcess)
         //报警计数类的实现
