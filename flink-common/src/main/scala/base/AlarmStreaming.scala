@@ -4,7 +4,6 @@ import com.alibaba.fastjson.{JSON, JSONObject}
 import org.apache.flink.api.common.restartstrategy.RestartStrategies
 import org.apache.flink.api.java.functions.KeySelector
 import org.apache.flink.api.java.utils.ParameterTool
-import org.apache.flink.contrib.streaming.state.RocksDBStateBackend
 import org.apache.flink.runtime.state.hashmap.HashMapStateBackend
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.{CheckpointConfig, StreamExecutionEnvironment}
@@ -16,8 +15,6 @@ import utils.GetConfig
 import utils.GetConfig.createConsumerProperties
 
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import scala.collection.JavaConverters.bufferAsJavaListConverter
 
 class AlarmStreaming extends FlinkBatteryProcess {
@@ -43,8 +40,8 @@ class AlarmStreaming extends FlinkBatteryProcess {
         env.getCheckpointConfig.setMaxConcurrentCheckpoints(1)
         //设置checkpoint超时时间
         env.getCheckpointConfig.setCheckpointTimeout(properties.getLong("checkpoint.timeout"))
-        //设置checkpoint失败时任务是否继续运行
-        env.getCheckpointConfig.setTolerableCheckpointFailureNumber(properties.getInt("checkpoint.failure.num"))
+        //设置checkpoint失败时任务继续运行
+        env.getCheckpointConfig.setTolerableCheckpointFailureNumber(Integer.MAX_VALUE)
         //设置HashMapStateBackend
         env.setStateBackend(new HashMapStateBackend())
         //设置checkpoint目录
@@ -61,7 +58,6 @@ class AlarmStreaming extends FlinkBatteryProcess {
     //gps配置文件
     env.registerCachedFile(properties.get("gps.path"), "gps")
 
-
   }
 
   override def readKafka() = {
@@ -77,7 +73,7 @@ class AlarmStreaming extends FlinkBatteryProcess {
     //获取时间
     val stratTime = properties.get("kafka.consumer.stratTime")
     //可以指定时间消费
-    if(stratTime!=null) {
+    if (stratTime != null) {
       // 定义日期时间格式
       val dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
       // 解析日期时间字符串为 Date 对象
@@ -93,7 +89,7 @@ class AlarmStreaming extends FlinkBatteryProcess {
   override def process(): DataStream[String] = {
     //TODO 将json数据预处理
     val value: DataStream[JSONObject] = dataStream.map(new DataPreprocessing).uid("dataPreprocessing").name("dataPreprocessing")
-    val alarmJson: DataStream[JSONObject] = value.keyBy(new KeySelector[JSONObject,String] {
+    val alarmJson: DataStream[JSONObject] = value.keyBy(new KeySelector[JSONObject, String] {
       //根据vin,alarmType,commandType进行分组
       override def getKey(in: JSONObject): String = in.getString("vin") + JSON.parseObject(in.getString("customField")).get("commandType")
     }).process(batteryProcessFunction).uid("batteryProcessFunction").name("batteryProcessFunction")
@@ -101,8 +97,8 @@ class AlarmStreaming extends FlinkBatteryProcess {
     //其中一条报警数据可能包含多个报警类型，所以需要将报警数据拆分成多条
     val alarmData: DataStream[JSONObject] = alarmJson.flatMap(new AlarmListFlatmap()).uid("alarmListFlatmap").name("alarmListFlatmap")
     //对报警数据进行计数统计
-    val reslust: DataStream[String] = alarmData.keyBy(new KeySelector[JSONObject,String] {
-    //根据vin,alarmType,commandType进行分组
+    val reslust: DataStream[String] = alarmData.keyBy(new KeySelector[JSONObject, String] {
+      //根据vin,alarmType,commandType进行分组
       override def getKey(in: JSONObject): String = in.getString("vin") + in.getString("alarm_type")
     }).process(alarmCountClass).uid("alarmCountClass").name("alarmCountClass")
       .map(new GpsProcess).uid("gpsProcess").name("gpsProcess")

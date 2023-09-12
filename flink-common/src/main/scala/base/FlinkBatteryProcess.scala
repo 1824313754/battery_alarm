@@ -4,9 +4,6 @@ import org.apache.flink.api.java.utils.ParameterTool
 import org.apache.flink.streaming.api.datastream.DataStream
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment
 
-import scala.beans.BeanProperty
-
-
 /**
  * @ClassName: FlinkBatteryProcess
  * @Description: TODO flink处理数据的基类
@@ -16,17 +13,38 @@ trait FlinkBatteryProcess extends Serializable {
   //flink环境
   protected var env: StreamExecutionEnvironment = _
   //配置文件
-  @BeanProperty protected var properties: ParameterTool = _
+  protected var properties: ParameterTool = _
   //数据流
   protected var dataStream: DataStream[String] = _
   //结果数据流
   protected var resultStream: DataStream[String] = _
   //处理数据的核心类
-  @BeanProperty protected var batteryProcessFunction : BatteryStateFunction=_
+  protected var batteryProcessFunction: BatteryStateFunction = _
   //获取报警次数的类
-  @BeanProperty protected var alarmCountClass:AlarmCountFunction=_
+  protected var alarmCountClass: AlarmCountFunction = _
   //任务名称
-  @BeanProperty protected var jobName:String=_
+  protected var jobName: String = _
+
+  def setProperties(properties: ParameterTool) = {
+    this.properties = properties
+    this
+  }
+
+  def setBatteryProcessFunction(batteryProcessFunction: BatteryStateFunction) = {
+    this.batteryProcessFunction = batteryProcessFunction
+    this
+  }
+
+  def setAlarmCountClass(alarmCountClass: AlarmCountFunction) = {
+    this.alarmCountClass = alarmCountClass
+    this
+  }
+
+  def setJobName(jobName: String) = {
+    this.jobName = jobName
+    this
+  }
+
 
   //获取配置文件
   def getConfig(args: Array[String]): ParameterTool
@@ -38,29 +56,28 @@ trait FlinkBatteryProcess extends Serializable {
   def registerConfigCachedFile()
 
   //读取kafka数据
-  def readKafka():DataStream[String]
+  def readKafka(): DataStream[String]
 
   //处理数据
-  def process():DataStream[String]
+  def process(): DataStream[String]
 
   //写入clickhouse
   def writeClickHouse()
 
 
-
   def run(): Unit = {
-    this.env=initFlinkEnv()
-    println("flink-battery-"+jobName+"  正在运行")
+    this.env = initFlinkEnv()
+    println("flink-battery-" + jobName + "  正在运行")
     //注册一些文件信息为分布式缓存
     registerConfigCachedFile()
     //读取kafka数据
-    this.dataStream=readKafka()
+    this.dataStream = readKafka()
     //处理数据
-    this.resultStream=process()
+    this.resultStream = process()
     //写入clickhouse
     writeClickHouse()
     //拼接flink-battery-jobName
-    env.execute("flink-battery-"+jobName)
+    env.execute("flink-battery-" + jobName)
 
   }
 

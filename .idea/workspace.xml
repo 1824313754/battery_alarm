@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="优化">
+    <list default="true" id="5d4b878b-24f6-4276-a67d-603b4c04d103" name="变更" comment="优化任务名称">
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/bean/DictConfig.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/AlarmStreaming.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-common/src/main/scala/base/FlinkBatteryProcess.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/AlarmStart.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/main/scala/geely/GeelyBattery.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" beforeDir="false" afterPath="$PROJECT_DIR$/flink-factory/src/test/java/org/example/Te.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +59,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "jdk.selected.JAVA_MODULE": "1.8",
-    "last_opened_file_path": "F:/battery/battery_alarm2",
+    "last_opened_file_path": "C:/Users/2022051705/.m2/repository/org/apache/flink/flink-sql-connector-kafka_2.11/1.13.0/flink-sql-connector-kafka_2.11-1.13.0-sources.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -63,7 +68,7 @@
     "project.structure.last.edited": "全局库",
     "project.structure.proportion": "0.15078124",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "MavenSettings",
     "spring.configuration.checksum": "036aa9013705d788fa480f6848da88a8"
   }
 }]]></component>
@@ -194,7 +199,24 @@
       <workItem from="1690181258635" duration="7237000" />
       <workItem from="1690245853654" duration="8580000" />
       <workItem from="1690265004389" duration="57733000" />
-      <workItem from="1692947123484" duration="3396000" />
+      <workItem from="1692947123484" duration="17527000" />
+      <workItem from="1693359717332" duration="232000" />
+      <workItem from="1693359986368" duration="195000" />
+      <workItem from="1693360215734" duration="348000" />
+      <workItem from="1693360597614" duration="584000" />
+      <workItem from="1693361297815" duration="592000" />
+      <workItem from="1693361980978" duration="1005000" />
+      <workItem from="1693363164997" duration="37000" />
+      <workItem from="1693363240086" duration="253000" />
+      <workItem from="1693363532033" duration="806000" />
+      <workItem from="1693364748791" duration="592000" />
+      <workItem from="1693376798964" duration="655000" />
+      <workItem from="1693385367825" duration="635000" />
+      <workItem from="1693386856562" duration="4641000" />
+      <workItem from="1693534483241" duration="3413000" />
+      <workItem from="1693547224491" duration="1187000" />
+      <workItem from="1694051619407" duration="517000" />
+      <workItem from="1694052185155" duration="13980000" />
     </task>
     <task id="LOCAL-00001" summary="暂存">
       <created>1689058431673</created>
@@ -315,7 +337,28 @@
       <option name="project" value="LOCAL" />
       <updated>1692947213593</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="优化ocv查询">
+      <created>1692952219384</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1692952219384</updated>
+    </task>
+    <task id="LOCAL-00019" summary="优化从指定时间消费">
+      <created>1692954351967</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1692954351967</updated>
+    </task>
+    <task id="LOCAL-00020" summary="优化任务名称">
+      <created>1693200714364</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1693200714364</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +392,10 @@
     <MESSAGE value="电池网2.0初版，scala 2.11" />
     <MESSAGE value="优化clickhouse重试机制" />
     <MESSAGE value="优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化" />
+    <MESSAGE value="优化ocv查询" />
+    <MESSAGE value="优化从指定时间消费" />
+    <MESSAGE value="优化任务名称" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化任务名称" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,13 +1,11 @@
-//package org.example
-//
-//import base.AlarmStreaming.properties
-//
-//import scala.reflect.runtime.{universe => ru}
-//object Te {
-//  def main(args: Array[String]): Unit = {
-//    // 使用类路径创建类的实例
-//    val flinkBase: FlinkBase = Class.forName("imp.GeelyProcess").newInstance().asInstanceOf[FlinkBase]
-//    print(flinkBase)
-//  }
-//
-//}
+object Test {
+  def main(args: Array[String]) {
+
+    val x = Test(6)
+    val  Test(a)=x
+    print(a)
+
+  }
+  def apply(x: Int) = x
+  def unapply(z: Int): Option[Int] = if (z%2==0) Some(z/2) else None
+}

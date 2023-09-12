@@ -20,9 +20,6 @@ class GeelyBattery extends BatteryStateFunction {
     val commandType: Int = customFieldJson.getIntValue("commandType")
     val batteryType = customFieldJson.getIntValue("battery_type")
     val cellCount: Int = json.getIntValue("cellCount")
-    json.put("cellVoltagesbackup", json.getString("cellVoltages"))
-    json.put("probeTemperaturesbackup", json.getString("probeTemperatures"))
-
     //TODO 三元
     if (batteryType == 2) {
       processNCMData(json, old_data, commandType)
